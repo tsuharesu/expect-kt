@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tsuharesu/expect-kt.svg?branch=master)](https://travis-ci.org/tsuharesu/expect-kt)
+
 # Introduction
 
 Expect.kt is a set of assertions that allow you to assert the outcome of testing state using a more fluent and specific set of assertions than you get from the `kotlin.test`.  Each type has a set of extension functions that allow you to check certain specifics that relate to that type.
