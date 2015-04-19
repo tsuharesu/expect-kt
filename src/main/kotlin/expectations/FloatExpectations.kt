@@ -1,3 +1,9 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Tsuharesu Luciel
+ */
+
 package kotlin.expectations
 
 import kotlin.test.assertTrue
