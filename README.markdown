@@ -1,231 +1,305 @@
+# expect-kt
 [![Build Status](https://travis-ci.org/tsuharesu/expect-kt.svg?branch=master)](https://travis-ci.org/tsuharesu/expect-kt)
 
-# Introduction
+expect-kt is a set of fluent assertions for Kotlin, for a better readability of your code than using `kotlin.test`. Each type has a set of extension functions that allow you to check certain specifics that relate to that type.
 
-Expect.kt is a set of assertions that allow you to assert the outcome of testing state using a more fluent and specific set of assertions than you get from the `kotlin.test`.  Each type has a set of extension functions that allow you to check certain specifics that relate to that type.
+This project is a fork of https://github.com/kouphax/expect.kt. That project was kind of abandoned (since 2012 without commits) and lacking a way to use with Gradle/maven. I just updated it so I can use on some projects, and hope to improve some areas and add new features (like better messages and new extensions). 
 
-Rather than fulfilling a specific need this project was started as a means to understand the [Kotlin](http://confluence.jetbrains.net/display/Kotlin/Welcome) language and explore its features (and limitations).  As it stands most of the assertions are not making good use of the "Kotlin way" and are shamelessly ripped off [FluentAssertions for .NET](http://fluentassertions.codeplex.com/).  The tweaking and improving come next plus there are actually some really nice bits of testing code with Kotlin.
+This is too a way for me to understand [Kotlin](http://kotlinlang.org/) and explore its features. The original project was inspired on [FluentAssertions for .NET](http://fluentassertions.com/) and now I'm inpired on [AssertJ](http://joel-costigliola.github.io/assertj/) too.
 
 # Syntax
 
-Expect.kt allows you to use two different approaches to defining an assertion.
+expect-kt allows you to use two different approaches to define an assertion:
 
 ## Expect Syntax
 
-Expect syntax offers typical expect(something).toBeInACertainState style of grammar.  The following test highlight this appraoch.
-
-    expect("james").toBe("james")
+Expect syntax offers typical `expect(something).toBeInACertainState` style of grammar that everybody uses. Like this:
+```java
+expect("james").toBe("james")
+```
 
 ## Fluent Syntax
 
-It is also possible to use a more fluent syntax to make the same assertion
-
-    "james".should.be("james")
+It is also possible to use a more fluent syntax (some kind of BDD) to make the same assertion
+```java
+"james".should.be("james")
+```
 
 # Chaining
 
-Expect.kt allows you to chain assertions to keep things really neat and tidy.
-
-    expect("james").toStartWith("j").and.toEndWith("s")
+expect-kt allows you to chain assertions to keep things really neat and tidy.
+```java
+expect("james").toStartWith("j").and.toEndWith("s")
+```
     
 Or, in fluent syntax
-
-    "james".should.startWith("j").and.endWith("s")
+```java
+"james".should.startWith("j").and.endWith("s")
+```
 
 # Standard Assertions
 
-There are a few assertions that can be used against any type,
+There are a few assertions that can be used on any type
 
-## toBe(...)/be(...)
+## toBe/be
 
-Assert that the state is the value passed in,
+Assert that the value should be equal to the other
+```java
+expect("james").toBe("james")
+"james".should.be("james")
+```
 
-    expect("james").toBe("james")
-    "james".should.be("james")
+## toNotBe/notBe
 
-## toNotBe(...)/notBe(...)
+Assert that the value should NOT be equal the other
+```java
+expect("james").toNotBe("jaime")
+"james".should.notBe("jaime")
+```java
 
-Assert that the state is NOT the value passed in,
+## toBeNull/beNull
 
-    expect("james").toNotBe("henry")
-    "james".should.notBe("henry")
+Assert that the value is null
+```java
+expect(null).toBeNull()
+null.should.beNull()
+```
 
-## toBeNull()/beNull()
+## toNotBeNull/notBeNull
 
-Assert that the state is null,
-
-    expect(null).toBeNull()
-    null.should.beNull()
-
-## toNotBeNull()/notBeNull()
-
-Assert that the state is NOT null
-
-    expect("james").toNotBeNull()
-    "james".should.notBeNull()
+Assert that the value is NOT null
+```java
+expect("james").toNotBeNull()
+"james".should.notBeNull()
+```
     
 # Logic Assertions
 
-## toBeTrue()/beTrue()
+## toBeTrue/beTrue
 
 Assert that the value is `true`
-
-    expect(true).toBeTrue()
-    true.should.beTrue()
+```java
+expect(true).toBeTrue()
+true.should.beTrue()
+```
     
-## toNotBeTrue()/notBeTrue()
+## toNotBeTrue/notBeTrue
 
-Assert that the state is NOT `true`
-
-    expect(false).toNotBeTrue()
-    false.should.notBeTrue()
+Assert that the value is NOT `true`
+```java
+expect(false).toNotBeTrue()
+false.should.notBeTrue()
+```
     
-## toBeFalse()/beFalse()
+## toBeFalse/beFalse
 
 Assert that the value is `false`
-
-    expect(false).toBeFalse()
-    false.should.beFalse()
+```java
+expect(false).toBeFalse()
+false.should.beFalse()
+```
     
-## toNotBeFalse()/notBeFalse()
+## toNotBeFalse/notBeFalse
 
-Assert that the state is NOT `false`
+Assert that the value is NOT `false`
+```java
+expect(true).toNotBeFalse()
+true.should.notBeFalse()
+```
 
-    expect(true).toNotBeFalse()
-    true.should.notBeFalse()
-    
 # String Assertions
 
-## toBeEmpty
+## toBeEmpty/beEmpty
 
-Assert that a string is empty ("").
+Assert that a string is empty ("")
+```java
+expect("").toBeEmpty()
+"".should.beEmpty()
+```
 
-	expect("").toBeEmpty()
-    "".should.beEmpty()
+## toNotBeEmpty/beNotEmpty
 
-## toNotBeEmpty
+Assert that a string is NOT empty ("")
+```java
+expect("  ").toNotBeEmpty()
+"  ".should.beNotEmpty()
+```
 
-Assert that a string is not empty ("").
+## toHaveLength/haveLength
 
-	expect("  ").toNotBeEmpty()
-    "  ".should.beNotEmpty()
+Assert that a string is of a certain length
+```java
+expect("james").toHaveLength(5)
+"james".should.haveLength(5)
+```
 
-## toHaveLength
+## toBeBlank/beBlank
 
-Assert that a string is of a certain length.
+Assert that a string is blank, in that it is empty or contains only whitespace
+```java
+expect("   ").toBeBlank()
+"    ".should.beBlank()
+```
 
-	expect("james").toHaveLength(5)
-    "james".should.haveLength(5)
+## toNotBeBlank/notBeBlank
 
-## toBeBlank
+Assert that a string is not blank, in that it isn't empty or contains more than whitespace
+```java
+expect("james").toNotBeBlank()
+"james".should.notBeBlank()
+```
 
-Assert that a string is blank, in that it is empty or contains only whitespace.
+## toBeEquivalentTo/beEquivalentTo
 
-	expect("   ").toBeBlank()
-    "    ".should.beBlank()
+Assert that a string is equal to another string regardless of case (ignore case comparation)
+```
+expect("JAMES").toBeEquivalentTo("james")
+"JAMES".should.beEquivalentTo("james")
+```
 
-## toNotBeBlank
-
-Assert that a string is not blank, in that it isn't empty or contains more than whitespace.
-
-	expect("james").toNotBeBlank()
-    "james".should.notBeBlank()
-
-## toBeEquivalentTo
-
-Assert that a string is equal to another string regardless of case.
-
-	expect("JAMES").toBeEquivalentTo("james")
-    "JAMES".should.beEquivalentTo("james")
-
-## toEndWith
+## toEndWith/endWith
 
 Assert that a string ends with another string
+```java
+expect("James").toEndWith("es")
+"James".should.endWith("es")
+```
 
-	expect("James").toEndWith("es")
-    "James".should.endWith("es")
+## toEndWithEquivalent/endWithEquivalent
 
-## toEndWithEquivalent
+Assert that a string ends with another string regardless of case
+```java
+expect("JAMES").toEndWithEquivalent("es")
+"JAMES".should.endWithEquivalent("es")
+```
 
-Assert that a string ends with another string regardless of case.
+## toContain/contain
 
-	expect("JAMES").toEndWithEquivalent("es")
-    "JAMES".should.endWithEquivalent("es")
+Assert that a string contains another string
+```java
+expect("james").toContain("am")
+"james".should.contain("am")
+```
 
-## toContain
-
-Assert that a string contains another string.
-
-	expect("JAMES").toContain("AM")
-    "JAMES".should.contain("AM)
-
-## toContainEquivalent
+## toContainEquivalent/containEquivalent
 
 Assert that a string contains another string regardless of case.
+```java
+expect("JAMES").toContainEquivalent("am")
+"JAMES".should.containEquivalent("am")
+```
 
-## toNotContain
+## toNotContain/notContain
 
 Assert that a string doesn't contain another string.
+```java
+expect("james").toNotContain("ei")
+"james".should.notContain("ei")
+```
 
-## toNotContainEquivalent
+## toNotContainEquivalent/notContainEquivalent
 
 Assert that a string doesn't contain another string regardless of case.
+```java
+expect("JAMES").toNotContainEquivalent("ei")
+"JAMES".should.notContainEquivalent("ei")
+```
 
-## toStartWith
+## toStartWith/startWith
 
 Assert that a string starts with another string.
+```java
+expect("james").toStartWith("j")
+"james".should.startWith("j")
+```
 
-## toStartWithEquivalent
+## toStartWithEquivalent/startWithEquivalent
 
 Assert that a string starts with another string regardless of case.
+```java
+expect("james").toStartWithEquivalent("JA")
+"james".should.startWithEquivalent("JA")
+```
 
-## toMatch
+## toMatch/match
 
 Assert that a string matches the given regex.
+```java
+expect("james").toMatch("^james$")
+"james".should.match("^james$")
+```
 
-# Numeric Assertions (currently Int, Long, Double)
+# Numeric Assertions (currently Int, Long, Double, Float)
 
-## toBeGreaterOrEqualTo
+## toBeGreaterOrEqualTo/beGreaterOrEqualTo
 
 Assert that a number is greater than or equal to another
+```java
+expect(2).toBeGreaterOrEqualTo(1)
+2.should.beGreaterOrEqualTo(1)
+```
 
-## toBeGreaterThan
+## toBeGreaterThan/beGreaterThan
 
 Assert that a number is greater than to another
+```java
+expect(2).toBeGreaterThan(1)
+2.should.beGreaterThan(1)
+```
 
-## toBeLessOrEqualTo
+## toBeLessOrEqualTo/beLessOrEqualTo
 
 Assert that a number is less than or equal to another
+```java
+expect(1).toBeLessOrEqualTo(2)
+1.should.beLessOrEqualTo(2)
+```
 
-## toBeLessThan
+## toBeLessThan/beLessThan
 
 Assert that a number is less than to another
+```java
+expect(1).toBeLessThan(2)
+1.should.beLessThan(2)
+```
 
-## toBeInRange
+## toBeInRange/beInRange
 
 Assert that a number is within the lower and upper bounds passed in
+```java
+expect(2).toBeInRange(1, 3)
+2.should.beInRange(1, 3)
+```
 
-## toBeApproximately
+## toBeApproximately/beApproximately
 
-Assert that a number is approximately another, the level of error is defined by the tolerance value (+/- tolerance)
+Assert that a number is approximately another - the level of error is defined by the tolerance value (+/- tolerance)
+```java
+expect(2f).toBeApproximately(2.1f, 0.1f)
+2f.should.beApproximately(2.1f, 0.1f)
+```
 
 # Date and Time Assertions
 
-## toBeAfter
+## toBeAfter/beAfter
 
 Assert that the given date is after the passed in date.
+```java
+expect(laterDate).toBeAfter(earlierDate)
+laterDate.should.beAfter(earlierDate)
+```
 
-## toBeBefore
+## toBeBefore/beBefore
 
 Assert that the given date is before the passed in date.
-
-## toBeOnOrAfter
-
-Asserts that the passed in date is on or after the asserted date without considering the time part of the date.  _This is a dubious decisions and needs properly considered_
+```java
+expect(earlierDate).toBeBefore(laterDate)
+earlierDate.should.beBefore(laterDate)
+```
 
 <!--
 > TODO: This stuff is still in development and very subject to change.
-
+## toBeOnOrAfter
 ## toHaveDay
 ## toHaveMonth
 ## toHaveYear
