@@ -1,21 +1,22 @@
 package kotlin.expectations.tests
 
+import kotlin.expectations.expect
+import kotlin.expectations.toEndWith
+import kotlin.expectations.toStartWith
+import kotlin.test.failsWith
 import org.junit.Test as test
-import org.junit.Assert.*
-import kotlin.test.*
-import kotlin.expectations.*
 
 
 class ChainingTests {
-    test fun And () {
+    test fun And() {
         expect("james").toStartWith("j").and.toEndWith("s")
 
-        failsWith<AssertionError>({
+        failsWith(javaClass<AssertionError>()) {
             expect("james").toStartWith("j").and.toEndWith("f")
-        })
+        }
 
-        failsWith<AssertionError>({
+        failsWith(javaClass<AssertionError>()) {
             expect("james").toStartWith("f").and.toEndWith("s")
-        })
+        }
     }
 }
