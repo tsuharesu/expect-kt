@@ -12,7 +12,7 @@ class GenericExpectationTests {
 
         failsWith(javaClass<AssertionError>()) {
             expect("pass").toBe("fail")
-        }
+        }.getMessage()?.should?.be("expected <pass> to be <fail>")
 
         "james".should.be("james")
 

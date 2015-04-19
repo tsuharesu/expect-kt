@@ -35,7 +35,7 @@ public open class Expectation<T>(val target: T) {
     }
 
     fun toBe(test: T): ExpectationChain<T> {
-        assertTrue(target == test)
+        assert(target == test, "expected <$target> to be <$test>")
         return ExpectationChain(this)
     }
 
