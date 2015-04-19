@@ -23,8 +23,8 @@ dependencies {
 // ------ MAVEN -----
 apply plugin: "maven"
 
-group = 'br.com.tsuharesu'
-version = '0.1'
+group = 'com.github.tsuharesu'
+version = '0.2'
 
 // ----- OTHER TASKS -----
 task wrapper(type: Wrapper) {
