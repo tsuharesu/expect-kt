@@ -19,7 +19,7 @@ fun Expectation<String>.toNotBeEmpty(): ExpectationChain<String> {
 }
 
 fun Expectation<String>.toHaveLengthOf(length: Int): ExpectationChain<String> {
-    assertTrue(target.length == length)
+    assertTrue(target.length() == length)
     return ExpectationChain(this)
 }
 
@@ -34,7 +34,7 @@ fun Expectation<String>.toNotBeBlank(): ExpectationChain<String> {
 }
 
 fun Expectation<String>.toBeEquivalentTo(comparison: String): ExpectationChain<String> {
-    assertTrue((target).equalsIgnoreCase(comparison))
+    assertTrue((target).equals(comparison, ignoreCase = true))
     return ExpectationChain(this)
 }
 
@@ -79,7 +79,7 @@ fun Expectation<String>.toStartWithEquivalent(comparison: String): ExpectationCh
 }
 
 fun Expectation<String>.toMatch(regex: String): ExpectationChain<String> {
-    assertTrue((target).matches(regex))
+    assertTrue((target).matches(regex.toRegex()))
     return ExpectationChain(this)
 }
 
