@@ -8,38 +8,38 @@ package kotlin.expectations.tests
 
 import java.util.Date
 import kotlin.expectations.*
-import kotlin.test.failsWith
+import kotlin.test.assertFailsWith
 import org.junit.Test as test
 
 class DateExpectationTests {
-    test fun toBeAfter() {
+    @test fun toBeAfter() {
         val laterDate = Date(2001, 1, 1)
         val earlierDate = Date(2000, 1, 1)
 
         expect(laterDate).toBeAfter(earlierDate)
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect(earlierDate).toBeAfter(laterDate)
-        }
+        })
 
         laterDate.should.beAfter(earlierDate)
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             earlierDate.should.beAfter(laterDate)
-        }
+        })
     }
 
-    test fun toBeBefore() {
+    @test fun toBeBefore() {
         val laterDate = Date(2001, 1, 1)
         val earlierDate = Date(2000, 1, 1)
 
         expect(earlierDate).toBeBefore(laterDate)
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect(laterDate).toBeBefore(earlierDate)
-        }
+        })
 
         earlierDate.should.beBefore(laterDate)
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             laterDate.should.beBefore(earlierDate)
-        }
+        })
     }
 
 //    test fun toBeOnOrAfter() {

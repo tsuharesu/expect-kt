@@ -36,12 +36,12 @@ public open class Expectation<T>(val target: T) {
     }
 
     fun toNotBeNull(): ExpectationChain<T> {
-        assertNotNull(target)
+        assert(target != null)
         return ExpectationChain(this)
     }
 
     fun toBe(test: T): ExpectationChain<T> {
-        assert(target == test, "expected <$target> to be <$test>")
+        assert(target == test) { "expected <$target> to be <$test>" }
         return ExpectationChain(this)
     }
 

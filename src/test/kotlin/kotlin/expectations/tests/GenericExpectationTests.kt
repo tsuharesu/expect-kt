@@ -8,64 +8,64 @@ package kotlin.expectations.tests
 
 import kotlin.expectations.expect
 import kotlin.expectations.should
-import kotlin.test.failsWith
+import kotlin.test.assertFailsWith
 import org.junit.Test as test
 
 
 class GenericExpectationTests {
-    test fun toBe() {
+    @test fun toBe() {
         expect("james").toBe("james")
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect("pass").toBe("fail")
-        }.getMessage()?.should?.be("expected <pass> to be <fail>")
+        }).getMessage()?.should?.be("expected <pass> to be <fail>")
 
         "james".should.be("james")
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             "pass".should.be("fail")
-        }
+        })
     }
 
-    test fun toNotBe() {
+    @test fun toNotBe() {
         expect("james").toNotBe("fail")
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect("fail").toNotBe("fail")
-        }
+        })
 
         "james".should.notBe("fail")
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             "fail".should.notBe("fail")
-        }
+        })
     }
 
-    test fun toBeNull() {
+    @test fun toBeNull() {
         expect(null).toBeNull()
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect("pass").toBeNull()
-        }
+        })
 
         null.should.beNull()
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             "pass".should.beNull()
-        }
+        })
     }
 
-    test fun toNotBeNull() {
+    @test fun toNotBeNull() {
         expect("asdasd").toNotBeNull()
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect(null).toNotBeNull()
-        }
+        })
 
         "asdasd".should.notBeNull()
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             null.should.notBeNull()
-        }
+        })
     }
 }

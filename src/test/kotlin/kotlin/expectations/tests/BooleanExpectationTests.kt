@@ -7,36 +7,36 @@
 package kotlin.expectations.tests
 
 import kotlin.expectations.*
-import kotlin.test.failsWith
+import kotlin.test.assertFailsWith
 import org.junit.Test as test
 
 
 class BooleanExpectationTests {
-    test fun toBeTrueTest() {
+    @test fun toBeTrueTest() {
         expect(true).toBeTrue()
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect(false).toBeTrue()
-        }
+        })
 
         true.should.beTrue()
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             false.should.beTrue()
-        }
+        })
     }
 
-    test fun toBeFalseTest() {
+    @test fun toBeFalseTest() {
         expect(false).toBeFalse()
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect(true).toBeFalse()
-        }
+        })
 
         false.should.beFalse()
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             true.should.beFalse()
-        }
+        })
     }
 }

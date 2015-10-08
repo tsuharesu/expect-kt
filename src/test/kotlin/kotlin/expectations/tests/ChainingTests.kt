@@ -9,20 +9,20 @@ package kotlin.expectations.tests
 import kotlin.expectations.expect
 import kotlin.expectations.toEndWith
 import kotlin.expectations.toStartWith
-import kotlin.test.failsWith
+import kotlin.test.assertFailsWith
 import org.junit.Test as test
 
 
 class ChainingTests {
-    test fun And() {
+    @test fun And() {
         expect("james").toStartWith("j").and.toEndWith("s")
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect("james").toStartWith("j").and.toEndWith("f")
-        }
+        })
 
-        failsWith(javaClass<AssertionError>()) {
+        assertFailsWith(AssertionError::class.java, {
             expect("james").toStartWith("f").and.toEndWith("s")
-        }
+        })
     }
 }
