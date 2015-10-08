@@ -3,7 +3,7 @@
 
 expect-kt is a set of fluent assertions for Kotlin, for a better readability of your code than using `kotlin.test`. Each type has a set of extension functions that allow you to check certain specifics that relate to that type.
 
-This project is a fork of https://github.com/kouphax/expect.kt. That project was kind of abandoned (since 2012 without commits) and lacking a way to use with Gradle/maven. I just updated it so I can use on some projects, and hope to improve some areas and add new features (like better messages and new extensions). 
+This project is a fork of https://github.com/kouphax/expect.kt. That project was kind of abandoned (since 2012 without commits) and lacking a way to use with Gradle/maven. I just updated it so I can use on some projects, and hope to improve some areas and add new features (like better messages and new extensions).
 
 This is too a way for me to understand [Kotlin](http://kotlinlang.org/) and explore its features. The original project was inspired on [FluentAssertions for .NET](http://fluentassertions.com/) and now I'm inpired on [AssertJ](http://joel-costigliola.github.io/assertj/) too.
 
@@ -23,7 +23,7 @@ Then add expect-kt as a project dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.tsuharesu:expect-kt:0.3'
+    compile 'com.github.tsuharesu:expect-kt:0.4'
 }
 ```
 
@@ -51,7 +51,7 @@ expect-kt allows you to chain assertions to keep things really neat and tidy.
 ```java
 expect("james").toStartWith("j").and.toEndWith("s")
 ```
-    
+
 Or, in fluent syntax
 ```java
 "james".should.startWith("j").and.endWith("s")
@@ -75,7 +75,7 @@ Assert that the value should NOT be equal the other
 ```java
 expect("james").toNotBe("jaime")
 "james".should.notBe("jaime")
-```java
+```
 
 ## toBeNull/beNull
 
@@ -92,7 +92,7 @@ Assert that the value is NOT null
 expect("james").toNotBeNull()
 "james".should.notBeNull()
 ```
-    
+
 # Logic Assertions
 
 ## toBeTrue/beTrue
@@ -102,7 +102,7 @@ Assert that the value is `true`
 expect(true).toBeTrue()
 true.should.beTrue()
 ```
-    
+
 ## toNotBeTrue/notBeTrue
 
 Assert that the value is NOT `true`
@@ -110,7 +110,7 @@ Assert that the value is NOT `true`
 expect(false).toNotBeTrue()
 false.should.notBeTrue()
 ```
-    
+
 ## toBeFalse/beFalse
 
 Assert that the value is `false`
@@ -118,7 +118,7 @@ Assert that the value is `false`
 expect(false).toBeFalse()
 false.should.beFalse()
 ```
-    
+
 ## toNotBeFalse/notBeFalse
 
 Assert that the value is NOT `false`
