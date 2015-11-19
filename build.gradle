@@ -5,7 +5,7 @@
  */
 
 buildscript {
-    ext.kotlin_version = '1.0.0-beta-2417'
+    ext.kotlin_version = '1.0.0-beta-2423'
     repositories {
         mavenCentral()
     }
@@ -30,7 +30,7 @@ dependencies {
 apply plugin: "maven"
 
 group = 'com.github.tsuharesu'
-version = '0.4.4'
+version = '0.4.5'
 
 // ----- OTHER TASKS -----
 task wrapper(type: Wrapper) {
