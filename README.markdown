@@ -23,7 +23,7 @@ Then add expect-kt as a project dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.tsuharesu:expect-kt:0.4.5'
+    compile 'com.github.tsuharesu:expect-kt:0.5.0'
 }
 ```
 
