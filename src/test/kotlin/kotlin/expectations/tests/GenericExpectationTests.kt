@@ -6,8 +6,7 @@
 
 package kotlin.expectations.tests
 
-import kotlin.expectations.expect
-import kotlin.expectations.should
+import kotlin.expectations.*
 import kotlin.test.assertFailsWith
 import org.junit.Test as test
 
@@ -18,7 +17,7 @@ class GenericExpectationTests {
 
         assertFailsWith(AssertionError::class.java, {
             expect("pass").toBe("fail")
-        }).getMessage()?.should?.be("expected <pass> to be <fail>")
+        }).message?.should?.be("expected <pass> to be <fail>")
 
         "james".should.be("james")
 
@@ -48,7 +47,8 @@ class GenericExpectationTests {
             expect("pass").toBeNull()
         })
 
-        null.should.beNull()
+        var x: Int? = null
+        x.should.beNull()
 
         assertFailsWith(AssertionError::class.java, {
             "pass".should.beNull()
@@ -65,7 +65,8 @@ class GenericExpectationTests {
         "asdasd".should.notBeNull()
 
         assertFailsWith(AssertionError::class.java, {
-            null.should.notBeNull()
+            var x: Int? = null
+            x.should.notBeNull()
         })
     }
 }

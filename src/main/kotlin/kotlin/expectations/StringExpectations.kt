@@ -19,7 +19,7 @@ fun Expectation<String>.toNotBeEmpty(): ExpectationChain<String> {
 }
 
 fun Expectation<String>.toHaveLengthOf(length: Int): ExpectationChain<String> {
-    assertTrue(target.length() == length)
+    assertTrue(target.length == length)
     return ExpectationChain(this)
 }
 

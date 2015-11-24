@@ -6,9 +6,7 @@
 
 package kotlin.expectations.tests
 
-import kotlin.expectations.expect
-import kotlin.expectations.toEndWith
-import kotlin.expectations.toStartWith
+import kotlin.expectations.*
 import kotlin.test.assertFailsWith
 import org.junit.Test as test
 
@@ -23,6 +21,18 @@ class ChainingTests {
 
         assertFailsWith(AssertionError::class.java, {
             expect("james").toStartWith("f").and.toEndWith("s")
+        })
+    }
+
+    @test fun shouldAnd() {
+        "james".should.startWith("j").and.endWith("s")
+
+        assertFailsWith(AssertionError::class.java, {
+            "james".should.startWith("j").and.endWith("f")
+        })
+
+        assertFailsWith(AssertionError::class.java, {
+            "james".should.startWith("f").and.endWith("s")
         })
     }
 }
