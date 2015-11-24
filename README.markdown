@@ -5,7 +5,7 @@ expect-kt is a set of fluent assertions for Kotlin, for a better readability of 
 
 This project is a fork of https://github.com/kouphax/expect.kt. That project was kind of abandoned (since 2012 without commits) and lacking a way to use with Gradle/maven. I just updated it so I can use on some projects, and hope to improve some areas and add new features (like better messages and new extensions).
 
-This is too a way for me to understand [Kotlin](http://kotlinlang.org/) and explore its features. The original project was inspired on [FluentAssertions for .NET](http://fluentassertions.com/) and now I'm inpired on [AssertJ](http://joel-costigliola.github.io/assertj/) too.
+This is too a way for me to understand [Kotlin](http://kotlinlang.org/) and explore its features. The original project was inspired by [FluentAssertions for .NET](http://fluentassertions.com/) and now I'm inpired by [AssertJ](http://joel-costigliola.github.io/assertj/) too.
 
 # How to add to project
 
@@ -301,53 +301,155 @@ expect(2f).toBeApproximately(2.1f, 0.1f)
 
 # Date and Time Assertions
 
-## toBeAfter/beAfter
+Removed because Kotlin doesn't have a default Time library (and you should use Java 8 time package instead of Java 6 that I was using)
 
-Assert that the given date is after the passed in date.
+# Collection Assertions (currently List)
+
+## toBeEmpty
+
+Assert that the list don't have any items
 ```java
-expect(laterDate).toBeAfter(earlierDate)
-laterDate.should.beAfter(earlierDate)
+expect(listOf<String>()).toBeEmpty()
+listOf<String>().should.beEmpty()
 ```
 
-## toBeBefore/beBefore
+## toNotBeEmpty
 
-Assert that the given date is before the passed in date.
+Assert that the list contain items
 ```java
-expect(earlierDate).toBeBefore(laterDate)
-earlierDate.should.beBefore(laterDate)
+expect(listOf("james")).toNotBeEmpty()
+listOf("james").should.notBeEmpty()
 ```
+
+## toHaveSize
+
+Assert that the list contains x items
+```java
+expect(listOf("james", "cindy")).toHaveSize(2)
+listOf("james", "cindy").should.haveSize(2)
+```
+
+## toHaveSameSizeAs
+
+Assert that the list contains the same of items as other list (same type or not)
+```java
+expect(listOf("james", "cindy")).toHaveSameSizeAs(listOf(1, 2))
+listOf("james", "cindy").should.haveSameSizeAs(listOf(1, 2))
+```
+
+## toContain
+
+Assert that the list contains this item
+```java
+expect(listOf("james", "cindy")).toContain("james")
+listOf("james", "cindy").should.contain("james")
+```
+
+## toContain - with lambda
+
+Assert that the list contains any item that matches the lambda (predicate)
+```java
+expect(listOf(1, 2)).toContain { it > 1 }
+listOf(1, 2).should.contain { it > 1 }
+```
+
+## toContainAll
+
+Assert that the list contains all this items
+```java
+expect(listOf("james", "cindy")).toContainAll(listOf("james"))
+listOf("james", "cindy").should.containAll(listOf("james"))
+```
+
+## toOnlyContain
+
+Assert that all items in the list matches the lambda (predicate)
+expect(listOf(2, 4, 6)).toOnlyContain { it.mod(2) == 0 }
+listOf(2, 4, 6).should.onlyContain { it.mod(2) == 0 }
+
+## toContainNull
+
+Assert that the list contains a null value
+```java
+expect(listOf("james", null)).toContainNull()
+listOf("james", null).should.containNull()
+```
+
+## toNotContain
+
+Assert that the list does not contain this item
+```java
+expect(listOf("james", "cindy")).toNotContain("tsu")
+listOf("james", "cindy").should.notContain("tsu")
+```
+
+## toNotContain - with lambda
+
+Assert that the list does not have any item that matches the lambda (predicate)
+```java
+expect(listOf(1, 2)).toNotContain { it > 2 }
+listOf(1, 2).should.notContain { it > 2 }
+```
+
+## toNotContainAny
+
+Assert that the list does not contain any of this items
+```java
+expect(listOf("james", "cindy")).toNotContainAny(listOf("tsu"))
+listOf("james", "cindy").should.notContainAny(listOf("tsu"))
+```
+
+## toNotContainNull
+
+Assert that the list does not contain null
+```java
+expect(listOf("james", "cindy")).toNotContainNull()
+listOf("james", "cindy").should.notContainNull()
+```
+
+## toStartWith
+
+Assert that the list first item is this
+```java
+expect(listOf("james", "cindy")).toStartWith("james")
+listOf("james", "cindy").should.startWith("james")
+```
+
+## toEndWith
+
+Assert that the list last item is this
+```java
+expect(listOf("james", "cindy")).toEndWith("cindy")
+listOf("james", "cindy").should.endWith("cindy")
+```
+
+## toHaveItemAt
+
+Assert that the list have a specific item at a position
+```java
+expect(listOf("james", "cindy")).toHaveItemAt("cindy", 1)
+listOf("james", "cindy").should.haveItemAt("cindy", 1)
+```
+
+## toNotContainDuplicates
+
+Assert that the list does not contains duplicated items
+```java
+expect(listOf("james", "cindy")).toNotContainDuplicates()
+listOf("james", "cindy").should.notContainDuplicates()
+```
+
+## toBeSubsetOf
+
+Assert that this list is a subset of another list
+```java
+expect(listOf("james", "cindy")).toBeSubsetOf(listOf("james", "cindy", "tsu", "aphrodite"))
+listOf("james", "cindy").should.beSubsetOf(listOf("james", "cindy", "tsu", "aphrodite"))
+```
+
 
 <!--
 > TODO: This stuff is still in development and very subject to change.
-## toBeOnOrAfter
-## toHaveDay
-## toHaveMonth
-## toHaveYear
-## toHaveHour
-## toHaveMinute
-## toHaveSecond
-## toBeLessThan().before()
-## toBeWithin(timespan).after()
-## toBeMoreThan(timespan)...
-## toBeAtLeast(timespan)...
-## toBeExactly
-
-# Collection Assertions
-
-## toNotBeEmpty
-## toHaveCount
-## toContainInOrder
-## toHaveSameCount
-## toBeSubsetOf
-## toNotBeSubsetOf
-## toHaveElementAt
-## toNotHaveElementAt
-## toContain
-## toContain - lambda
-## toNotContain - lambda
-## toOnlyContain - lambda
-## toNotContainNulls
-## toBeEmpty
 
 # Dictionary Assertions
 
