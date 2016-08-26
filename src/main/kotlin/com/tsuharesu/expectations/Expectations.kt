@@ -4,31 +4,30 @@
  * Copyright (c) 2015 Tsuharesu Luciel
  */
 
-package kotlin.expectations
+package com.tsuharesu.expectations
 
-import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 // Entry points for expectations
-public fun <T> expect(target: T): Expectation<T> {
+fun <T> expect(target: T): Expectation<T> {
     return Expectation(target)
 }
 
 
-public val <T> T.should: Should<T> get() = Should(this)
+val <T> T.should: Should<T> get() = Should(this)
 
 // sugar
-public class ExpectationChain<T>(val expectation: Expectation<T>) {
+class ExpectationChain<T>(val expectation: Expectation<T>) {
     val and: Expectation<T> get() = expectation
 }
 
 // add support for chaining
-public class ShouldChain<T>(val should: Should<T>) {
+class ShouldChain<T>(val should: Should<T>) {
     val and: Should<T> get() = should
 }
 
-public open class Expectation<T>(val target: T) {
+open class Expectation<T>(val target: T) {
 
     fun toBeNull(): ExpectationChain<T> {
         assertNull(target)
@@ -53,7 +52,7 @@ public open class Expectation<T>(val target: T) {
 
 
 // Shim around expectations
-public class Should<T>(val target: T) {
+class Should<T>(target: T) {
 
     val expector = Expectation(target)
 

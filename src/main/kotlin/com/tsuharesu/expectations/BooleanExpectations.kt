@@ -4,7 +4,7 @@
  * Copyright (c) 2015 Tsuharesu Luciel
  */
 
-package kotlin.expectations
+package com.tsuharesu.expectations
 
 import kotlin.test.assertTrue
 
@@ -18,7 +18,7 @@ fun Expectation<Boolean>.toBeFalse(): ExpectationChain<Boolean> {
     return ExpectationChain(this)
 }
 
-public val Boolean.should: Should<Boolean> get() = Should(this)
+val Boolean.should: Should<Boolean> get() = Should(this)
 
 fun Should<Boolean>.beTrue(): ShouldChain<Boolean> {
     expector.toBeTrue()

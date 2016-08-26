@@ -4,7 +4,7 @@
  * Copyright (c) 2015 Tsuharesu Luciel
  */
 
-package kotlin.expectations
+package com.tsuharesu.expectations
 
 import kotlin.test.assertTrue
 
@@ -33,7 +33,7 @@ fun <T> Expectation<List<T>>.toContain(value: T): ExpectationChain<List<T>> {
     return ExpectationChain(this)
 }
 
-fun <T> Expectation<List<T>>.toContain(value: (T) -> Boolean): ExpectationChain<List<T>> {
+fun <T> Expectation<List<T>>.toMatchLambda(value: (T) -> Boolean): ExpectationChain<List<T>> {
     assertTrue(target.any(value))
     return ExpectationChain(this)
 }
@@ -49,7 +49,7 @@ fun <T> Expectation<List<T>>.toContainAll(value: List<T>): ExpectationChain<List
 }
 
 fun <T> Expectation<List<T>>.toContainNull(): ExpectationChain<List<T>> {
-    assertTrue(target.containsRaw(null))
+    assertTrue(target.any { it == null })
     return ExpectationChain(this)
 }
 
@@ -58,7 +58,7 @@ fun <T> Expectation<List<T>>.toNotContain(value: T): ExpectationChain<List<T>> {
     return ExpectationChain(this)
 }
 
-fun <T> Expectation<List<T>>.toNotContain(value: (T) -> Boolean): ExpectationChain<List<T>> {
+fun <T> Expectation<List<T>>.toNotMatchLambda(value: (T) -> Boolean): ExpectationChain<List<T>> {
     assertTrue(target.none(value))
     return ExpectationChain(this)
 }
@@ -69,7 +69,7 @@ fun <T> Expectation<List<T>>.toNotContainAny(value: List<T>): ExpectationChain<L
 }
 
 fun <T> Expectation<List<T>>.toNotContainNull(): ExpectationChain<List<T>> {
-    assertTrue(!target.containsRaw(null))
+    assertTrue(target.none { it == null })
     return ExpectationChain(this)
 }
 
@@ -84,7 +84,7 @@ fun <T> Expectation<List<T>>.toEndWith(value: T): ExpectationChain<List<T>> {
 }
 
 fun <T> Expectation<List<T>>.toHaveItemAt(item: T, index: Int): ExpectationChain<List<T>> {
-    assertTrue(target.get(index) == item)
+    assertTrue(target[index] == item)
     return ExpectationChain(this)
 }
 
@@ -98,7 +98,7 @@ fun <T> Expectation<List<T>>.toBeSubsetOf(value: List<T>): ExpectationChain<List
     return ExpectationChain(this)
 }
 
-public val <T> List<T>.should: Should<List<T>> get() = Should(this)
+val <T> List<T>.should: Should<List<T>> get() = Should(this)
 
 fun <T> Should<List<T>>.beEmpty(): ShouldChain<List<T>> {
     expector.toBeEmpty()
@@ -125,8 +125,8 @@ fun <T> Should<List<T>>.contain(value: T): ShouldChain<List<T>> {
     return ShouldChain(this)
 }
 
-fun <T> Should<List<T>>.contain(value: (T) -> Boolean): ShouldChain<List<T>> {
-    expector.toContain(value)
+fun <T> Should<List<T>>.matchLambda(value: (T) -> Boolean): ShouldChain<List<T>> {
+    expector.toMatchLambda(value)
     return ShouldChain(this)
 }
 
@@ -150,8 +150,8 @@ fun <T> Should<List<T>>.notContain(value: T): ShouldChain<List<T>> {
     return ShouldChain(this)
 }
 
-fun <T> Should<List<T>>.notContain(value: (T) -> Boolean): ShouldChain<List<T>> {
-    expector.toNotContain(value)
+fun <T> Should<List<T>>.notMatchLambda(value: (T) -> Boolean): ShouldChain<List<T>> {
+    expector.toNotMatchLambda(value)
     return ShouldChain(this)
 }
 
