@@ -23,7 +23,7 @@ Then add expect-kt as a project dependency
 
 ```groovy
 dependencies {
-    compile 'com.github.tsuharesu:expect-kt:0.5.1'
+    compile 'com.github.tsuharesu:expect-kt:0.6.1'
 }
 ```
 
@@ -298,10 +298,6 @@ Assert that a number is approximately another - the level of error is defined by
 expect(2f).toBeApproximately(2.1f, 0.1f)
 2f.should.beApproximately(2.1f, 0.1f)
 ```
-
-# Date and Time Assertions
-
-Removed because Kotlin doesn't have a default Time library (and you should use Java 8 time package instead of Java 6 that I was using)
 
 # Collection Assertions (currently List)
 
