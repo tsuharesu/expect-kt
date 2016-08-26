@@ -47,7 +47,7 @@ class GenericExpectationTests {
             expect("pass").toBeNull()
         })
 
-        var x: Int? = null
+        val x: Int? = null
         x.should.beNull()
 
         assertFailsWith(AssertionError::class, {
@@ -65,7 +65,7 @@ class GenericExpectationTests {
         "asdasd".should.notBeNull()
 
         assertFailsWith(AssertionError::class, {
-            var x: Int? = null
+            val x: Int? = null
             x.should.notBeNull()
         })
     }

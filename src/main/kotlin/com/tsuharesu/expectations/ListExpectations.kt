@@ -84,7 +84,7 @@ fun <T> Expectation<List<T>>.toEndWith(value: T): ExpectationChain<List<T>> {
 }
 
 fun <T> Expectation<List<T>>.toHaveItemAt(item: T, index: Int): ExpectationChain<List<T>> {
-    assertTrue(target.get(index) == item)
+    assertTrue(target[index] == item)
     return ExpectationChain(this)
 }
 

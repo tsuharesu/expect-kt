@@ -6,7 +6,6 @@
 
 package com.tsuharesu.expectations
 
-import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -53,7 +52,7 @@ open class Expectation<T>(val target: T) {
 
 
 // Shim around expectations
-class Should<T>(val target: T) {
+class Should<T>(target: T) {
 
     val expector = Expectation(target)
 
