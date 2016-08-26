@@ -4,34 +4,34 @@
  * Copyright (c) 2015 Tsuharesu Luciel
  */
 
-package kotlin.expectations.tests
+package com.tsuharesu.expectations.tests
 
-import kotlin.expectations.*
+import com.tsuharesu.expectations.*
 import kotlin.test.assertFailsWith
 import org.junit.Test as test
 
 
 class ChainingTests {
-    @test fun And() {
+    @org.junit.Test fun And() {
         expect("james").toStartWith("j").and.toEndWith("s")
 
-        assertFailsWith(AssertionError::class.java, {
+        assertFailsWith(AssertionError::class, {
             expect("james").toStartWith("j").and.toEndWith("f")
         })
 
-        assertFailsWith(AssertionError::class.java, {
+        assertFailsWith(AssertionError::class, {
             expect("james").toStartWith("f").and.toEndWith("s")
         })
     }
 
-    @test fun shouldAnd() {
+    @org.junit.Test fun shouldAnd() {
         "james".should.startWith("j").and.endWith("s")
 
-        assertFailsWith(AssertionError::class.java, {
+        assertFailsWith(AssertionError::class, {
             "james".should.startWith("j").and.endWith("f")
         })
 
-        assertFailsWith(AssertionError::class.java, {
+        assertFailsWith(AssertionError::class, {
             "james".should.startWith("f").and.endWith("s")
         })
     }

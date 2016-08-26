@@ -4,7 +4,7 @@
  * Copyright (c) 2015 Tsuharesu Luciel
  */
 
-package kotlin.expectations
+package com.tsuharesu.expectations
 
 import kotlin.test.assertTrue
 
@@ -37,7 +37,7 @@ fun Expectation<Int>.toBeApproximately(value: Int, tolerance: Int): ExpectationC
     return expect(target).toBeInRange(value - tolerance, value + tolerance)
 }
 
-public val Int.should: Should<Int> get() = Should(this)
+val Int.should: Should<Int> get() = Should(this)
 
 
 fun Should<Int>.beGreaterOrEqualTo(value: Int): ShouldChain<Int> {

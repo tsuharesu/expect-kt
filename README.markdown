@@ -345,7 +345,7 @@ expect(listOf("james", "cindy")).toContain("james")
 listOf("james", "cindy").should.contain("james")
 ```
 
-## toContain - with lambda
+## toMatchLambda
 
 Assert that the list contains any item that matches the lambda (predicate)
 ```java
@@ -383,7 +383,7 @@ expect(listOf("james", "cindy")).toNotContain("tsu")
 listOf("james", "cindy").should.notContain("tsu")
 ```
 
-## toNotContain - with lambda
+## toNotMatchLambda
 
 Assert that the list does not have any item that matches the lambda (predicate)
 ```java

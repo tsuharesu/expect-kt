@@ -4,7 +4,7 @@
  * Copyright (c) 2015 Tsuharesu Luciel
  */
 
-package kotlin.expectations
+package com.tsuharesu.expectations
 
 import kotlin.test.assertTrue
 
@@ -83,7 +83,7 @@ fun Expectation<String>.toMatch(regex: String): ExpectationChain<String> {
     return ExpectationChain(this)
 }
 
-public val String.should: Should<String> get() = Should(this)
+val String.should: Should<String> get() = Should(this)
 
 fun Should<String>.beEmpty(): ShouldChain<String> {
     expector.toBeEmpty()

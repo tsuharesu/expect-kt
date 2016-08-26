@@ -4,38 +4,38 @@
  * Copyright (c) 2015 Tsuharesu Luciel
  */
 
-package kotlin.expectations.tests
+package com.tsuharesu.expectations.tests
 
-import kotlin.expectations.*
+import com.tsuharesu.expectations.*
 import kotlin.test.assertFailsWith
 import org.junit.Test as test
 
 
 class BooleanExpectationTests {
-    @test fun toBeTrueTest() {
+    @org.junit.Test fun toBeTrueTest() {
         expect(true).toBeTrue()
 
-        assertFailsWith(AssertionError::class.java, {
+        assertFailsWith(AssertionError::class, {
             expect(false).toBeTrue()
         })
 
         true.should.beTrue()
 
-        assertFailsWith(AssertionError::class.java, {
+        assertFailsWith(AssertionError::class, {
             false.should.beTrue()
         })
     }
 
-    @test fun toBeFalseTest() {
+    @org.junit.Test fun toBeFalseTest() {
         expect(false).toBeFalse()
 
-        assertFailsWith(AssertionError::class.java, {
+        assertFailsWith(AssertionError::class, {
             expect(true).toBeFalse()
         })
 
         false.should.beFalse()
 
-        assertFailsWith(AssertionError::class.java, {
+        assertFailsWith(AssertionError::class, {
             true.should.beFalse()
         })
     }
