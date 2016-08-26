@@ -31,5 +31,5 @@ dependencies {
 apply plugin: "maven"
 
 group = 'com.github.tsuharesu'
-version = '0.5.1'
+version = '0.6'
 
