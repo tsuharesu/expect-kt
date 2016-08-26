@@ -31,10 +31,5 @@ dependencies {
 apply plugin: "maven"
 
 group = 'com.github.tsuharesu'
-version = '0.5.1'
-
-// ----- OTHER TASKS -----
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.9'
-}
+version = '0.6'
 
