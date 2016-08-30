@@ -5,4 +5,5 @@
  */
 
 rootProject.name = 'expect-kt'
+rootProject.buildFileName = 'build.gradle.kts'
 
