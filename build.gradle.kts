@@ -30,4 +30,4 @@ dependencies {
 
 // ------ MAVEN -----
 group = "com.github.tsuharesu"
-version = "0.6"
+version = "0.6.2"
