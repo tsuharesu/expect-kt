@@ -6,13 +6,15 @@
 
 package com.tsuharesu.expectations.tests
 
-import com.tsuharesu.expectations.*
+import com.tsuharesu.expectations.expect
+import com.tsuharesu.expectations.should
+import org.junit.Test
 import kotlin.test.assertFailsWith
-import org.junit.Test as test
 
 
 class GenericExpectationTests {
-    @org.junit.Test fun toBe() {
+    @Test
+    fun toBe() {
         expect("james").toBe("james")
 
         assertFailsWith(AssertionError::class, {
@@ -26,7 +28,8 @@ class GenericExpectationTests {
         })
     }
 
-    @org.junit.Test fun toNotBe() {
+    @Test
+    fun toNotBe() {
         expect("james").toNotBe("fail")
 
         assertFailsWith(AssertionError::class, {
@@ -40,7 +43,8 @@ class GenericExpectationTests {
         })
     }
 
-    @org.junit.Test fun toBeNull() {
+    @Test
+    fun toBeNull() {
         expect(null).toBeNull()
 
         assertFailsWith(AssertionError::class, {
@@ -55,7 +59,8 @@ class GenericExpectationTests {
         })
     }
 
-    @org.junit.Test fun toNotBeNull() {
+    @Test
+    fun toNotBeNull() {
         expect("asdasd").toNotBeNull()
 
         assertFailsWith(AssertionError::class, {

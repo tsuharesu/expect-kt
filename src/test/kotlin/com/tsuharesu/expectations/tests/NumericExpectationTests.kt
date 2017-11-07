@@ -7,23 +7,24 @@
 package com.tsuharesu.expectations.tests
 
 import com.tsuharesu.expectations.*
+import org.junit.Test
 import kotlin.test.assertFailsWith
-import org.junit.Test as test
 
 class NumericExpectationTests {
 
-    @org.junit.Test fun toBeGreaterOrEqualTo() {
+    @Test
+    fun toBeGreaterOrEqualTo() {
         // Int
-        expect(2.toInt()).toBeGreaterOrEqualTo(1)
-        expect(2.toInt()).toBeGreaterOrEqualTo(2)
+        expect(2).toBeGreaterOrEqualTo(1)
+        expect(2).toBeGreaterOrEqualTo(2)
         assertFailsWith(AssertionError::class, {
-            expect(2.toInt()).toBeGreaterOrEqualTo(3)
+            expect(2).toBeGreaterOrEqualTo(3)
         })
 
-        2.toInt().should.beGreaterOrEqualTo(1)
-        2.toInt().should.beGreaterOrEqualTo(2)
+        2.should.beGreaterOrEqualTo(1)
+        2.should.beGreaterOrEqualTo(2)
         assertFailsWith(AssertionError::class, {
-            2.toInt().should.beGreaterOrEqualTo(3)
+            2.should.beGreaterOrEqualTo(3)
         })
 
         // Long
@@ -66,22 +67,23 @@ class NumericExpectationTests {
         })
     }
 
-    @org.junit.Test fun toBeGreaterThan() {
+    @Test
+    fun toBeGreaterThan() {
         // Int
-        expect(2.toInt()).toBeGreaterThan(1)
+        expect(2).toBeGreaterThan(1)
         assertFailsWith(AssertionError::class, {
-            expect(2.toInt()).toBeGreaterThan(2)
+            expect(2).toBeGreaterThan(2)
         })
         assertFailsWith(AssertionError::class, {
-            expect(2.toInt()).toBeGreaterThan(3)
+            expect(2).toBeGreaterThan(3)
         })
 
-        2.toInt().should.beGreaterThan(1)
+        2.should.beGreaterThan(1)
         assertFailsWith(AssertionError::class, {
-            2.toInt().should.beGreaterThan(2)
+            2.should.beGreaterThan(2)
         })
         assertFailsWith(AssertionError::class, {
-            2.toInt().should.beGreaterThan(3)
+            2.should.beGreaterThan(3)
         })
 
         // Long
@@ -136,7 +138,8 @@ class NumericExpectationTests {
         })
     }
 
-    @org.junit.Test fun toBeLessOrEqualTo() {
+    @Test
+    fun toBeLessOrEqualTo() {
         // Int
         expect(1).toBeLessOrEqualTo(2)
         expect(1).toBeLessOrEqualTo(1)
@@ -190,7 +193,8 @@ class NumericExpectationTests {
         })
     }
 
-    @org.junit.Test fun toBeLessThan() {
+    @Test
+    fun toBeLessThan() {
         // Int
         expect(1).toBeLessThan(2)
         assertFailsWith(AssertionError::class, {
@@ -236,7 +240,9 @@ class NumericExpectationTests {
         })
     }
 
-    @org.junit.Test fun toBeInRange() {
+    @Test
+    fun toBeInRange() {
+        // Int
         expect(2).toBeInRange(1, 3)
         expect(2).toBeInRange(2, 2)
 
@@ -250,9 +256,56 @@ class NumericExpectationTests {
         assertFailsWith(AssertionError::class, {
             2.should.beInRange(3, 6)
         })
+
+        // Long
+        expect(2.toLong()).toBeInRange(1, 3)
+        expect(2.toLong()).toBeInRange(2, 2)
+
+        assertFailsWith(AssertionError::class, {
+            expect(2.toLong()).toBeInRange(3, 6)
+        })
+
+        2.toLong().should.beInRange(1, 3)
+        2.toLong().should.beInRange(2, 2)
+
+        assertFailsWith(AssertionError::class, {
+            2.toLong().should.beInRange(3, 6)
+        })
+
+        // Double
+        expect(2.0).toBeInRange(1.0, 2.1)
+        expect(2.0).toBeInRange(2.0, 2.0)
+
+        assertFailsWith(AssertionError::class, {
+            expect(2.0).toBeInRange(3.0, 6.0)
+        })
+
+        2.0.should.beInRange(1.0, 2.1)
+        2.0.should.beInRange(2.0, 2.0)
+
+        assertFailsWith(AssertionError::class, {
+            2.0.should.beInRange(3.0, 6.0)
+        })
+
+        // Float
+        expect(2f).toBeInRange(1f, 2.1f)
+        expect(2f).toBeInRange(2f, 2f)
+
+        assertFailsWith(AssertionError::class, {
+            expect(2f).toBeInRange(3f, 6f)
+        })
+
+        2f.should.beInRange(1f, 2.1f)
+        2f.should.beInRange(2f, 2f)
+
+        assertFailsWith(AssertionError::class, {
+            2f.should.beInRange(3f, 6f)
+        })
     }
 
-    @org.junit.Test fun toBeApproximately() {
+    @Test
+    fun toBeApproximately() {
+        // Int
         expect(2).toBeApproximately(4, 2)
         expect(4).toBeApproximately(2, 2)
 
@@ -267,6 +320,37 @@ class NumericExpectationTests {
             2.should.beApproximately(8, 5)
         })
 
+        // Long
+        expect(2.toLong()).toBeApproximately(4, 2)
+        expect(4.toLong()).toBeApproximately(2, 2)
+
+        assertFailsWith(AssertionError::class, {
+            expect(2.toLong()).toBeApproximately(8, 5)
+        })
+
+        2.toLong().should.beApproximately(4, 2)
+        4.toLong().should.beApproximately(2, 2)
+
+        assertFailsWith(AssertionError::class, {
+            2.toLong().should.beApproximately(8, 5)
+        })
+
+        // Double
+        expect(2.0).toBeApproximately(2.1, 0.1)
+        expect(2.0).toBeApproximately(1.9, 0.1)
+
+        assertFailsWith(AssertionError::class, {
+            expect(2.0).toBeApproximately(2.8, 0.5)
+        })
+
+        2.0.should.beApproximately(2.1, 0.1)
+        2.0.should.beApproximately(1.9, 0.1)
+
+        assertFailsWith(AssertionError::class, {
+            2.0.should.beApproximately(2.8, 0.5)
+        })
+
+        // Float
         expect(2f).toBeApproximately(2.1f, 0.1f)
         expect(2f).toBeApproximately(1.9f, 0.1f)
 

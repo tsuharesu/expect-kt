@@ -64,16 +64,16 @@ class ListExpectationsTests {
     }
 
     @Test fun toOnlyContain() {
-        expect(listOf(2, 4, 6)).toOnlyContain { it.mod(2) == 0 }
+        expect(listOf(2, 4, 6)).toOnlyContain { it.rem(2) == 0 }
 
         assertFailsWith(AssertionError::class) {
-            expect(listOf(2, 4, 5)).toOnlyContain { it.mod(2) == 0 }
+            expect(listOf(2, 4, 5)).toOnlyContain { it.rem(2) == 0 }
         }
 
-        listOf(2, 4, 6).should.onlyContain { it.mod(2) == 0 }
+        listOf(2, 4, 6).should.onlyContain { it.rem(2) == 0 }
 
         assertFailsWith(AssertionError::class) {
-            listOf(2, 4, 5).should.onlyContain { it.mod(2) == 0 }
+            listOf(2, 4, 5).should.onlyContain { it.rem(2) == 0 }
         }
     }
 

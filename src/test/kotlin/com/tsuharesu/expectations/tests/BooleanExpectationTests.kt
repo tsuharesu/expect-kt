@@ -7,12 +7,12 @@
 package com.tsuharesu.expectations.tests
 
 import com.tsuharesu.expectations.*
+import org.junit.Test
 import kotlin.test.assertFailsWith
-import org.junit.Test as test
-
 
 class BooleanExpectationTests {
-    @org.junit.Test fun toBeTrueTest() {
+    @Test
+    fun toBeTrueTest() {
         expect(true).toBeTrue()
 
         assertFailsWith(AssertionError::class, {
@@ -26,7 +26,8 @@ class BooleanExpectationTests {
         })
     }
 
-    @org.junit.Test fun toBeFalseTest() {
+    @Test
+    fun toBeFalseTest() {
         expect(false).toBeFalse()
 
         assertFailsWith(AssertionError::class, {
