@@ -11,7 +11,6 @@ import com.tsuharesu.expectations.should
 import org.junit.Test
 import kotlin.test.assertFailsWith
 
-
 class GenericExpectationTests {
     @Test
     fun toBe() {

@@ -14,7 +14,6 @@ fun <T> expect(target: T): Expectation<T> {
     return Expectation(target)
 }
 
-
 val <T> T.should: Should<T> get() = Should(this)
 
 // sugar
@@ -49,7 +48,6 @@ open class Expectation<T>(val target: T) {
         return ExpectationChain(this)
     }
 }
-
 
 // Shim around expectations
 class Should<T>(target: T) {

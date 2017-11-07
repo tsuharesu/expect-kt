@@ -39,7 +39,6 @@ fun Expectation<Int>.toBeApproximately(value: Int, tolerance: Int): ExpectationC
 
 val Int.should: Should<Int> get() = Should(this)
 
-
 fun Should<Int>.beGreaterOrEqualTo(value: Int): ShouldChain<Int> {
     expector.toBeGreaterOrEqualTo(value)
     return ShouldChain(this)
