@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 Tsuharesu Luciel
+ * Copyright (c) 2017 Tsuharesu Luciel
  */
 
 package com.tsuharesu.expectations
@@ -13,7 +13,6 @@ import kotlin.test.assertTrue
 fun <T> expect(target: T): Expectation<T> {
     return Expectation(target)
 }
-
 
 val <T> T.should: Should<T> get() = Should(this)
 
@@ -49,7 +48,6 @@ open class Expectation<T>(val target: T) {
         return ExpectationChain(this)
     }
 }
-
 
 // Shim around expectations
 class Should<T>(target: T) {

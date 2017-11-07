@@ -1,15 +1,14 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 Tsuharesu Luciel
+ * Copyright (c) 2017 Tsuharesu Luciel
  */
 
 package com.tsuharesu.expectations.tests
 
-import com.tsuharesu.expectations.*
+import com.tsuharesu.expectations.* // ktlint-disable no-wildcard-imports
 import org.junit.Test
 import kotlin.test.assertFailsWith
-
 
 class StringExpectationTests {
 

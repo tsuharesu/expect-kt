@@ -16,7 +16,19 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.diffplug.gradle.spotless" version "3.6.0"
+}
+
 apply plugin: 'kotlin'
+
+spotless {
+    kotlin {
+        ktlint('0.11.1')
+
+        licenseHeaderFile 'spotless-license-header'
+    }
+}
 
 repositories {
     jcenter()

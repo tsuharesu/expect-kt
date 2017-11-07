@@ -1,5 +1,5 @@
 # expect-kt
-[![Build Status](https://travis-ci.org/tsuharesu/expect-kt.svg?branch=master)](https://travis-ci.org/tsuharesu/expect-kt) [![Release](https://img.shields.io/github/tag/tsuharesu/expect-kt.svg?label=maven)](https://jitpack.io/#tsuharesu/expect-kt)
+[![Build Status](https://travis-ci.org/tsuharesu/expect-kt.svg?branch=master)](https://travis-ci.org/tsuharesu/expect-kt) [![Release](https://img.shields.io/github/tag/tsuharesu/expect-kt.svg?label=maven)](https://jitpack.io/#tsuharesu/expect-kt)[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 expect-kt is a set of fluent assertions for Kotlin, for a better readability of your code than using `kotlin.test`. Each type has a set of extension functions that allow you to check certain specifics that relate to that type.
 
@@ -19,7 +19,7 @@ repositories {
 }
 ```
 
-Then add expect-kt as a project dependency
+Then add `expect-kt` as a project dependency
 
 ```groovy
 dependencies {

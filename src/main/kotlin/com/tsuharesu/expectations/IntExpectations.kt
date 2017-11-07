@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 Tsuharesu Luciel
+ * Copyright (c) 2017 Tsuharesu Luciel
  */
 
 package com.tsuharesu.expectations
@@ -38,7 +38,6 @@ fun Expectation<Int>.toBeApproximately(value: Int, tolerance: Int): ExpectationC
 }
 
 val Int.should: Should<Int> get() = Should(this)
-
 
 fun Should<Int>.beGreaterOrEqualTo(value: Int): ShouldChain<Int> {
     expector.toBeGreaterOrEqualTo(value)
