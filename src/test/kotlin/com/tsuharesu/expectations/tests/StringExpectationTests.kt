@@ -7,13 +7,14 @@
 package com.tsuharesu.expectations.tests
 
 import com.tsuharesu.expectations.*
+import org.junit.Test
 import kotlin.test.assertFailsWith
-import org.junit.Test as test
 
 
 class StringExpectationTests {
 
-    @org.junit.Test fun toBeEmpty() {
+    @Test
+    fun toBeEmpty() {
 
         expect("").toBeEmpty()
 
@@ -32,7 +33,8 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toNotBeEmpty() {
+    @Test
+    fun toNotBeEmpty() {
 
         expect("james").toNotBeEmpty()
 
@@ -49,7 +51,8 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toHaveLengthOf() {
+    @Test
+    fun toHaveLengthOf() {
         expect("james").toHaveLengthOf(5)
 
         assertFailsWith(AssertionError::class, {
@@ -63,7 +66,8 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toBeBlank() {
+    @Test
+    fun toBeBlank() {
         expect("").toBeBlank()
         expect("   ").toBeBlank()
 
@@ -79,7 +83,8 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toNotBeBlank() {
+    @Test
+    fun toNotBeBlank() {
         expect("james").toNotBeBlank()
         expect("  james ").toNotBeBlank()
 
@@ -103,7 +108,8 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toEndWith() {
+    @Test
+    fun toEndWith() {
         expect("james").toEndWith("s")
 
         assertFailsWith(AssertionError::class, {
@@ -117,7 +123,8 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toContain() {
+    @Test
+    fun toContain() {
         expect("james").toContain("ame")
 
         assertFailsWith(AssertionError::class, {
@@ -131,7 +138,8 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toNotContain() {
+    @Test
+    fun toNotContain() {
         expect("james").toNotContain("nope")
 
         assertFailsWith(AssertionError::class, {
@@ -145,7 +153,8 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toStartWith() {
+    @Test
+    fun toStartWith() {
         expect("james").toStartWith("j")
 
         assertFailsWith(AssertionError::class, {
@@ -159,7 +168,8 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toMatch() {
+    @Test
+    fun toMatch() {
         expect("james").toMatch("^james$")
 
         assertFailsWith(AssertionError::class, {
@@ -173,19 +183,22 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toEndWithEquivalent() {
-        expect("james").toEndWithEquivalent("S")
+    @Test
+    fun toBeEquivalentTo() {
+        expect("james").toBeEquivalentTo("James")
 
-        "james".should.endWithEquivalent("S")
+        "james".should.beEquivalentTo("James")
     }
 
-    @org.junit.Test fun toContainEquivalent() {
+    @Test
+    fun toContainEquivalent() {
         expect("james").toContainEquivalent("aMe")
 
         "james".should.containEquivalent("aMe")
     }
 
-    @org.junit.Test fun toNotContainEquivalent() {
+    @Test
+    fun toNotContainEquivalent() {
         assertFailsWith(AssertionError::class, {
             expect("james").toNotContainEquivalent("aMe")
         })
@@ -195,9 +208,17 @@ class StringExpectationTests {
         })
     }
 
-    @org.junit.Test fun toStartWithEquivalent() {
+    @Test
+    fun toStartWithEquivalent() {
         expect("james").toStartWithEquivalent("J")
 
         "james".should.startWithEquivalent("J")
+    }
+
+    @Test
+    fun toEndWithEquivalent() {
+        expect("james").toEndWithEquivalent("S")
+
+        "james".should.endWithEquivalent("S")
     }
 }

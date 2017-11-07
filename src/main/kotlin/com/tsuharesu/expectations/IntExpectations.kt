@@ -29,7 +29,7 @@ fun Expectation<Int>.toBeLessThan(value: Int): ExpectationChain<Int> {
 }
 
 fun Expectation<Int>.toBeInRange(lower: Int, upper: Int): ExpectationChain<Int> {
-    assertTrue(target >= lower && target <= upper)
+    assertTrue(target in lower..upper)
     return ExpectationChain(this)
 }
 

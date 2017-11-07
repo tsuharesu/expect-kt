@@ -18,7 +18,7 @@ fun <T> expect(target: T): Expectation<T> {
 val <T> T.should: Should<T> get() = Should(this)
 
 // sugar
-class ExpectationChain<T>(val expectation: Expectation<T>) {
+class ExpectationChain<T>(private val expectation: Expectation<T>) {
     val and: Expectation<T> get() = expectation
 }
 

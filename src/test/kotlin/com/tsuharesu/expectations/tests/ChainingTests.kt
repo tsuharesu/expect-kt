@@ -7,12 +7,13 @@
 package com.tsuharesu.expectations.tests
 
 import com.tsuharesu.expectations.*
+import org.junit.Test
 import kotlin.test.assertFailsWith
-import org.junit.Test as test
 
 
 class ChainingTests {
-    @org.junit.Test fun And() {
+    @Test
+    fun and() {
         expect("james").toStartWith("j").and.toEndWith("s")
 
         assertFailsWith(AssertionError::class, {
@@ -24,7 +25,8 @@ class ChainingTests {
         })
     }
 
-    @org.junit.Test fun shouldAnd() {
+    @org.junit.Test
+    fun shouldAnd() {
         "james".should.startWith("j").and.endWith("s")
 
         assertFailsWith(AssertionError::class, {
