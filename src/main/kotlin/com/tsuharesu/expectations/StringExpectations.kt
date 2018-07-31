@@ -86,76 +86,76 @@ fun Expectation<String>.toMatch(regex: String): ExpectationChain<String> {
 val String.should: Should<String> get() = Should(this)
 
 fun Should<String>.beEmpty(): ShouldChain<String> {
-    expector.toBeEmpty()
+    expectation.toBeEmpty()
     return ShouldChain(this)
 }
 
 fun Should<String>.notBeEmpty(): ShouldChain<String> {
-    expector.toNotBeEmpty()
+    expectation.toNotBeEmpty()
     return ShouldChain(this)
 }
 
 fun Should<String>.haveLengthOf(length: Int): ShouldChain<String> {
-    expector.toHaveLengthOf(length)
+    expectation.toHaveLengthOf(length)
     return ShouldChain(this)
 }
 
 fun Should<String>.beBlank(): ShouldChain<String> {
-    expector.toBeBlank()
+    expectation.toBeBlank()
     return ShouldChain(this)
 }
 
 fun Should<String>.notBeBlank(): ShouldChain<String> {
-    expector.toNotBeBlank()
+    expectation.toNotBeBlank()
     return ShouldChain(this)
 }
 
 fun Should<String>.beEquivalentTo(comparison: String): ShouldChain<String> {
-    expector.toBeEquivalentTo(comparison)
+    expectation.toBeEquivalentTo(comparison)
     return ShouldChain(this)
 }
 
 fun Should<String>.endWith(comparison: String): ShouldChain<String> {
-    expector.toEndWith(comparison)
+    expectation.toEndWith(comparison)
     return ShouldChain(this)
 }
 
 fun Should<String>.endWithEquivalent(comparison: String): ShouldChain<String> {
-    expector.toEndWithEquivalent(comparison)
+    expectation.toEndWithEquivalent(comparison)
     return ShouldChain(this)
 }
 
 fun Should<String>.contain(comparison: String): ShouldChain<String> {
-    expector.toContain(comparison)
+    expectation.toContain(comparison)
     return ShouldChain(this)
 }
 
 fun Should<String>.containEquivalent(comparison: String): ShouldChain<String> {
-    expector.toContainEquivalent(comparison)
+    expectation.toContainEquivalent(comparison)
     return ShouldChain(this)
 }
 
 fun Should<String>.notContain(comparison: String): ShouldChain<String> {
-    expector.toNotContain(comparison)
+    expectation.toNotContain(comparison)
     return ShouldChain(this)
 }
 
 fun Should<String>.notContainEquivalent(comparison: String): ShouldChain<String> {
-    expector.toNotContainEquivalent(comparison)
+    expectation.toNotContainEquivalent(comparison)
     return ShouldChain(this)
 }
 
 fun Should<String>.startWith(comparison: String): ShouldChain<String> {
-    expector.toStartWith(comparison)
+    expectation.toStartWith(comparison)
     return ShouldChain(this)
 }
 
 fun Should<String>.startWithEquivalent(comparison: String): ShouldChain<String> {
-    expector.toStartWithEquivalent(comparison)
+    expectation.toStartWithEquivalent(comparison)
     return ShouldChain(this)
 }
 
 fun Should<String>.match(regex: String): ShouldChain<String> {
-    expector.toMatch(regex)
+    expectation.toMatch(regex)
     return ShouldChain(this)
 }

@@ -6,6 +6,7 @@
 
 package com.tsuharesu.expectations
 
+import kotlin.reflect.KClass
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -14,7 +15,15 @@ fun <T> expect(target: T): Expectation<T> {
     return Expectation(target)
 }
 
+fun <T> expect(target: T, block: Expectation<T>.() -> Unit) {
+    block(Expectation(target))
+}
+
 val <T> T.should: Should<T> get() = Should(this)
+
+fun <T> T.should(block: Should<T>.() -> Unit) {
+    block(Should(this))
+}
 
 // sugar
 class ExpectationChain<T>(private val expectation: Expectation<T>) {
@@ -43,6 +52,11 @@ open class Expectation<T>(val target: T) {
         return ExpectationChain(this)
     }
 
+    fun toBeInstanceOf(test: KClass<*>): ExpectationChain<T> {
+        assertTrue(test.java.isInstance(target), "expected <$target> to be <$test>")
+        return ExpectationChain(this)
+    }
+
     fun toNotBe(test: T): ExpectationChain<T> {
         assertTrue(target != test)
         return ExpectationChain(this)
@@ -52,26 +66,31 @@ open class Expectation<T>(val target: T) {
 // Shim around expectations
 class Should<T>(target: T) {
 
-    val expector = Expectation(target)
+    val expectation = Expectation(target)
 
     // NULLABLE TYPES
     fun beNull(): ShouldChain<T> {
-        expector.toBeNull()
+        expectation.toBeNull()
         return ShouldChain(this)
     }
 
     fun notBeNull(): ShouldChain<T> {
-        expector.toNotBeNull()
+        expectation.toNotBeNull()
         return ShouldChain(this)
     }
 
     fun be(test: T): ShouldChain<T> {
-        expector.toBe(test)
+        expectation.toBe(test)
+        return ShouldChain(this)
+    }
+
+    fun beInstanceOf(test: KClass<*>): ShouldChain<T> {
+        expectation.toBeInstanceOf(test)
         return ShouldChain(this)
     }
 
     fun notBe(test: T): ShouldChain<T> {
-        expector.toNotBe(test)
+        expectation.toNotBe(test)
         return ShouldChain(this)
     }
 }

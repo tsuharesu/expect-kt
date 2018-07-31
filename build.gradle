@@ -6,7 +6,7 @@
  */
 
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.51'
 
     repositories {
         jcenter()
@@ -17,14 +17,14 @@ buildscript {
 }
 
 plugins {
-    id "com.diffplug.gradle.spotless" version "3.6.0"
+    id "com.diffplug.gradle.spotless" version "3.14.0"
 }
 
 apply plugin: 'kotlin'
 
 spotless {
     kotlin {
-        ktlint('0.11.1')
+        ktlint('0.24.0')
 
         licenseHeaderFile 'spotless-license-header'
     }

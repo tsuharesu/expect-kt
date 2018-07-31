@@ -57,6 +57,20 @@ Or, in fluent syntax
 "james".should.startWith("j").and.endWith("s")
 ```
 
+Or using blocks (because it's even better)
+```java
+expect("james") {
+    toStartWith("j")
+    toEndWith("s")
+}
+```
+
+```java
+"james".should {
+    startWith("j")
+    endWith("s")
+}
+```
 # Standard Assertions
 
 There are a few assertions that can be used on any type
@@ -92,6 +106,17 @@ Assert that the value is NOT null
 expect("james").toNotBeNull()
 "james".should.notBeNull()
 ```
+
+## toBeInstanceOf/beInstanceOf
+
+Assert that the value should of some class. 
+```java
+expect("james").toBeInstanceOf(String::class)
+expect(SomeTestClass()).toBeInstanceOf(SomeTestClass::class)
+"james".should.beInstanceOf(String::class)
+```
+
+_It does not work very well with numbers (Int, Float, ...)_
 
 # Logic Assertions
 
@@ -360,8 +385,10 @@ listOf("james", "cindy").should.containAll(listOf("james"))
 ## toOnlyContain
 
 Assert that all items in the list matches the lambda (predicate)
+```java
 expect(listOf(2, 4, 6)).toOnlyContain { it.mod(2) == 0 }
 listOf(2, 4, 6).should.onlyContain { it.mod(2) == 0 }
+```
 
 ## toContainNull
 

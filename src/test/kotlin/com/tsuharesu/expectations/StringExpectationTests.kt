@@ -4,9 +4,8 @@
  * Copyright (c) 2017 Tsuharesu Luciel
  */
 
-package com.tsuharesu.expectations.tests
+package com.tsuharesu.expectations
 
-import com.tsuharesu.expectations.* // ktlint-disable no-wildcard-imports
 import org.junit.Test
 import kotlin.test.assertFailsWith
 
@@ -17,19 +16,19 @@ class StringExpectationTests {
 
         expect("").toBeEmpty()
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("james").toBeEmpty()
-        })
+        }
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("     ").toBeEmpty()
-        })
+        }
 
         "".should.beEmpty()
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "pass".should.beEmpty()
-        })
+        }
     }
 
     @Test
@@ -37,32 +36,32 @@ class StringExpectationTests {
 
         expect("james").toNotBeEmpty()
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("").toNotBeEmpty()
-        })
+        }
 
         expect("     ").toNotBeEmpty()
 
         "james".should.notBeEmpty()
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "".should.notBeEmpty()
-        })
+        }
     }
 
     @Test
     fun toHaveLengthOf() {
         expect("james").toHaveLengthOf(5)
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("james").toHaveLengthOf(12)
-        })
+        }
 
         "james".should.haveLengthOf(5)
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "james".should.haveLengthOf(12)
-        })
+        }
     }
 
     @Test
@@ -73,13 +72,13 @@ class StringExpectationTests {
         "".should.beBlank()
         "    ".should.beBlank()
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("james").toBeBlank()
-        })
+        }
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "james".should.beBlank()
-        })
+        }
     }
 
     @Test
@@ -90,96 +89,96 @@ class StringExpectationTests {
         "james".should.notBeBlank()
         "   james ".should.notBeBlank()
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("").toNotBeBlank()
-        })
+        }
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("     ").toNotBeBlank()
-        })
+        }
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "".should.notBeBlank()
-        })
+        }
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "    ".should.notBeBlank()
-        })
+        }
     }
 
     @Test
     fun toEndWith() {
         expect("james").toEndWith("s")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("james").toEndWith("j")
-        })
+        }
 
         "james".should.endWith("s")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "james".should.endWith("j")
-        })
+        }
     }
 
     @Test
     fun toContain() {
         expect("james").toContain("ame")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("james").toContain("nope")
-        })
+        }
 
         "james".should.contain("ame")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "james".should.contain("nope")
-        })
+        }
     }
 
     @Test
     fun toNotContain() {
         expect("james").toNotContain("nope")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("james").toNotContain("ame")
-        })
+        }
 
         "james".should.notContain("nope")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "james".should.notContain("ame")
-        })
+        }
     }
 
     @Test
     fun toStartWith() {
         expect("james").toStartWith("j")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("james").toStartWith("s")
-        })
+        }
 
         "james".should.startWith("j")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "james".should.startWith("s")
-        })
+        }
     }
 
     @Test
     fun toMatch() {
         expect("james").toMatch("^james$")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("james").toMatch("^fail$")
-        })
+        }
 
         "james".should.match("^james$")
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "james".should.match("^fail$")
-        })
+        }
     }
 
     @Test
@@ -198,13 +197,13 @@ class StringExpectationTests {
 
     @Test
     fun toNotContainEquivalent() {
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             expect("james").toNotContainEquivalent("aMe")
-        })
+        }
 
-        assertFailsWith(AssertionError::class, {
+        assertFailsWith(AssertionError::class) {
             "james".should.notContainEquivalent("aMe")
-        })
+        }
     }
 
     @Test

@@ -4,9 +4,8 @@
  * Copyright (c) 2017 Tsuharesu Luciel
  */
 
-package com.tsuharesu.expectations.tests
+package com.tsuharesu.expectations
 
-import com.tsuharesu.expectations.* // ktlint-disable no-wildcard-imports
 import org.junit.Test
 import kotlin.test.assertFailsWith
 

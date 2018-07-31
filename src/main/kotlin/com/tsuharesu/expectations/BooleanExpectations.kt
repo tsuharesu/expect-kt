@@ -21,11 +21,11 @@ fun Expectation<Boolean>.toBeFalse(): ExpectationChain<Boolean> {
 val Boolean.should: Should<Boolean> get() = Should(this)
 
 fun Should<Boolean>.beTrue(): ShouldChain<Boolean> {
-    expector.toBeTrue()
+    expectation.toBeTrue()
     return ShouldChain(this)
 }
 
 fun Should<Boolean>.beFalse(): ShouldChain<Boolean> {
-    expector.toBeFalse()
+    expectation.toBeFalse()
     return ShouldChain(this)
 }

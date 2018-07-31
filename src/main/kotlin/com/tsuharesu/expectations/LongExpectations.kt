@@ -40,31 +40,31 @@ fun Expectation<Long>.toBeApproximately(value: Long, tolerance: Long): Expectati
 val Long.should: Should<Long> get() = Should(this)
 
 fun Should<Long>.beGreaterOrEqualTo(value: Long): ShouldChain<Long> {
-    expector.toBeGreaterOrEqualTo(value)
+    expectation.toBeGreaterOrEqualTo(value)
     return ShouldChain(this)
 }
 
 fun Should<Long>.beGreaterThan(value: Long): ShouldChain<Long> {
-    expector.toBeGreaterThan(value)
+    expectation.toBeGreaterThan(value)
     return ShouldChain(this)
 }
 
 fun Should<Long>.beLessOrEqualTo(value: Long): ShouldChain<Long> {
-    expector.toBeLessOrEqualTo(value)
+    expectation.toBeLessOrEqualTo(value)
     return ShouldChain(this)
 }
 
 fun Should<Long>.beLessThan(value: Long): ShouldChain<Long> {
-    expector.toBeLessThan(value)
+    expectation.toBeLessThan(value)
     return ShouldChain(this)
 }
 
 fun Should<Long>.beInRange(lower: Long, upper: Long): ShouldChain<Long> {
-    expector.toBeInRange(lower, upper)
+    expectation.toBeInRange(lower, upper)
     return ShouldChain(this)
 }
 
 fun Should<Long>.beApproximately(value: Long, tolerance: Long): ShouldChain<Long> {
-    expector.toBeApproximately(value, tolerance)
+    expectation.toBeApproximately(value, tolerance)
     return ShouldChain(this)
 }

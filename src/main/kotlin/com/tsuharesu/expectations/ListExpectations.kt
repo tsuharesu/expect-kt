@@ -101,91 +101,91 @@ fun <T> Expectation<List<T>>.toBeSubsetOf(value: List<T>): ExpectationChain<List
 val <T> List<T>.should: Should<List<T>> get() = Should(this)
 
 fun <T> Should<List<T>>.beEmpty(): ShouldChain<List<T>> {
-    expector.toBeEmpty()
+    expectation.toBeEmpty()
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.notBeEmpty(): ShouldChain<List<T>> {
-    expector.toNotBeEmpty()
+    expectation.toNotBeEmpty()
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.haveSize(value: Int): ShouldChain<List<T>> {
-    expector.toHaveSize(value)
+    expectation.toHaveSize(value)
     return ShouldChain(this)
 }
 
 fun <T, E> Should<List<T>>.haveSameSizeAs(value: List<E>): ShouldChain<List<T>> {
-    expector.toHaveSameSizeAs(value)
+    expectation.toHaveSameSizeAs(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.contain(value: T): ShouldChain<List<T>> {
-    expector.toContain(value)
+    expectation.toContain(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.matchLambda(value: (T) -> Boolean): ShouldChain<List<T>> {
-    expector.toMatchLambda(value)
+    expectation.toMatchLambda(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.onlyContain(value: (T) -> Boolean): ShouldChain<List<T>> {
-    expector.toOnlyContain(value)
+    expectation.toOnlyContain(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.containAll(value: List<T>): ShouldChain<List<T>> {
-    expector.toContainAll(value)
+    expectation.toContainAll(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.containNull(): ShouldChain<List<T>> {
-    expector.toContainNull()
+    expectation.toContainNull()
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.notContain(value: T): ShouldChain<List<T>> {
-    expector.toNotContain(value)
+    expectation.toNotContain(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.notMatchLambda(value: (T) -> Boolean): ShouldChain<List<T>> {
-    expector.toNotMatchLambda(value)
+    expectation.toNotMatchLambda(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.notContainAny(value: List<T>): ShouldChain<List<T>> {
-    expector.toNotContainAny(value)
+    expectation.toNotContainAny(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.notContainNull(): ShouldChain<List<T>> {
-    expector.toNotContainNull()
+    expectation.toNotContainNull()
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.startWith(value: T): ShouldChain<List<T>> {
-    expector.toStartWith(value)
+    expectation.toStartWith(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.endWith(value: T): ShouldChain<List<T>> {
-    expector.toEndWith(value)
+    expectation.toEndWith(value)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.haveItemAt(item: T, index: Int): ShouldChain<List<T>> {
-    expector.toHaveItemAt(item, index)
+    expectation.toHaveItemAt(item, index)
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.notContainDuplicates(): ShouldChain<List<T>> {
-    expector.toNotContainDuplicates()
+    expectation.toNotContainDuplicates()
     return ShouldChain(this)
 }
 
 fun <T> Should<List<T>>.beSubsetOf(value: List<T>): ShouldChain<List<T>> {
-    expector.toBeSubsetOf(value)
+    expectation.toBeSubsetOf(value)
     return ShouldChain(this)
 }
