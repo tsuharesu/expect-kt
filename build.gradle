@@ -18,6 +18,7 @@ buildscript {
 
 plugins {
     id "com.diffplug.gradle.spotless" version "3.14.0"
+    id "maven-publish"
 }
 
 apply plugin: 'kotlin'
@@ -42,8 +43,41 @@ dependencies {
 }
 
 // ------ MAVEN -----
-apply plugin: "maven"
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
 
-group = 'com.github.tsuharesu'
-version = '0.8.0'
+publishing {
+    publications {
+        expectKt(MavenPublication) {
+            groupId = 'com.tsuharesu'
+            artifactId = 'expect-kt'
+            version = '0.8.0'
 
+            from components.java
+            artifact sourcesJar
+
+            pom {
+                name = "expect-kt"
+                description = "Expectations/Assertions library for Kotlin with some fluent syntax"
+                url = "http://tsuharesu.github.io/expect-kt"
+                licenses {
+                    license {
+                        name = "The MIT License (MIT)"
+                        url = "https://choosealicense.com/licenses/mit/"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "tsuharesu"
+                        name = "Tsuharesu"
+                    }
+                }
+                scm {
+                    url = "https://github.com/tsuharesu/expect-kt"
+                }
+            }
+        }
+    }
+}
