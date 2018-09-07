@@ -1,5 +1,5 @@
 # expect-kt
-[![CircleCI](https://circleci.com/gh/tsuharesu/expect-kt.svg?style=svg)](https://circleci.com/gh/tsuharesu/expect-kt) [![Release](https://img.shields.io/github/tag/tsuharesu/expect-kt.svg?label=maven)](https://jitpack.io/#tsuharesu/expect-kt) [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+[![CircleCI](https://circleci.com/gh/tsuharesu/expect-kt.svg?style=svg)](https://circleci.com/gh/tsuharesu/expect-kt) [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 expect-kt is a set of fluent assertions for Kotlin, for a better readability of your code than using `kotlin.test`. Each type has a set of extension functions that allow you to check certain specifics that relate to that type.
 
@@ -7,19 +7,11 @@ This project is a fork of https://github.com/kouphax/expect.kt. That project was
 
 This is too a way for me to understand [Kotlin](http://kotlinlang.org/) and explore its features. The original project was inspired by [FluentAssertions for .NET](http://fluentassertions.com/) and now I'm inpired by [AssertJ](http://joel-costigliola.github.io/assertj/) too.
 
-# How to add to project
+# Gradle dependency
 
-Add Jitpack to the list of project repositories
+[![Download](https://api.bintray.com/packages/tsuharesu/maven/expect-kt/images/download.svg?version=0.8.0)](https://bintray.com/tsuharesu/maven/expect-kt/0.8.0)
 
-```groovy
-repositories {
-    maven {
-        url "https://jitpack.io"
-    }
-}
-```
-
-Then add `expect-kt` as a project dependency
+Add `expect-kt` as a test dependency
 
 ```groovy
 dependencies {
