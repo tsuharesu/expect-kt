@@ -24,7 +24,7 @@ apply plugin: 'kotlin'
 
 spotless {
     kotlin {
-        ktlint('0.24.0')
+        ktlint('0.28.0')
 
         licenseHeaderFile 'spotless-license-header'
     }
