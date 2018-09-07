@@ -18,6 +18,8 @@ buildscript {
 
 plugins {
     id "com.diffplug.gradle.spotless" version "3.14.0"
+    id "maven-publish"
+    id "com.jfrog.bintray" version "1.8.4"
 }
 
 apply plugin: 'kotlin'
@@ -42,8 +44,60 @@ dependencies {
 }
 
 // ------ MAVEN -----
-apply plugin: "maven"
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
 
-group = 'com.github.tsuharesu'
-version = '0.8.0'
+publishing {
+    publications {
+        expectKt(MavenPublication) {
+            groupId = 'com.tsuharesu'
+            artifactId = 'expect-kt'
+            version = '0.8.0'
 
+            from components.java
+            artifact sourcesJar
+
+            pom {
+                name = "expect-kt"
+                description = "Expectations/Assertions library for Kotlin with some fluent syntax"
+                url = "http://tsuharesu.github.io/expect-kt"
+                licenses {
+                    license {
+                        name = "The MIT License (MIT)"
+                        url = "https://choosealicense.com/licenses/mit/"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "tsuharesu"
+                        name = "Tsuharesu"
+                    }
+                }
+                scm {
+                    url = "https://github.com/tsuharesu/expect-kt"
+                }
+            }
+        }
+    }
+}
+// ------ BINTRAY -----
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['expectKt']
+    pkg {
+        repo = 'maven'
+        name = 'expect-kt'
+        userOrg = 'tsuharesu'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/tsuharesu/expect-kt.git'
+
+        version {
+            name = '0.8.0'
+            released  = '2018-07-31'
+            vcsTag = '0.8.0'
+        }
+    }
+}
