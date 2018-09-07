@@ -19,6 +19,7 @@ buildscript {
 plugins {
     id "com.diffplug.gradle.spotless" version "3.14.0"
     id "maven-publish"
+    id "com.jfrog.bintray" version "1.8.4"
 }
 
 apply plugin: 'kotlin'
@@ -78,6 +79,25 @@ publishing {
                     url = "https://github.com/tsuharesu/expect-kt"
                 }
             }
+        }
+    }
+}
+// ------ BINTRAY -----
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['expectKt']
+    pkg {
+        repo = 'maven'
+        name = 'expect-kt'
+        userOrg = 'tsuharesu'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/tsuharesu/expect-kt.git'
+
+        version {
+            name = '0.8.0'
+            released  = '2018-07-31'
+            vcsTag = '0.8.0'
         }
     }
 }
