@@ -118,7 +118,7 @@ class ListExpectationsTests {
         }
     }
 
-    @Test fun toNotContainLambda() {
+    @Test fun toNotMatchLambda() {
         expect(listOf(1, 2)).toNotMatchLambda { it > 2 }
 
         assertFailsWith(AssertionError::class) {

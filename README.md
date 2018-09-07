@@ -3,7 +3,7 @@
 
 expect-kt is a set of fluent assertions for Kotlin, for a better readability of your code than using `kotlin.test`. Each type has a set of extension functions that allow you to check certain specifics that relate to that type.
 
-This project is a fork of https://github.com/kouphax/expect.kt. That project was kind of abandoned (since 2012 without commits) and lacking a way to use with Gradle/maven. I just updated it so I can use on some projects, and hope to improve some areas and add new features (like better messages and new extensions).
+This project is a fork of https://github.com/kouphax/expect.kt. That project was abandoned (since 2012 without commits) and lacking a way to use with Gradle/maven. I updated it so I can use on some projects, and hope to improve some areas and add new features (like better messages and new extensions).
 
 This is too a way for me to understand [Kotlin](http://kotlinlang.org/) and explore its features. The original project was inspired by [FluentAssertions for .NET](http://fluentassertions.com/) and now I'm inpired by [AssertJ](http://joel-costigliola.github.io/assertj/) too.
 
@@ -52,12 +52,12 @@ expect-kt allows you to chain assertions to keep things really neat and tidy.
 expect("james").toStartWith("j").and.toEndWith("s")
 ```
 
-Or, in fluent syntax
+Or, in fluent syntax.
 ```java
 "james".should.startWith("j").and.endWith("s")
 ```
 
-Or using blocks (because it's even better)
+Or using blocks, because sometimes you want lots of checks.
 ```java
 expect("james") {
     toStartWith("j")
@@ -370,8 +370,8 @@ listOf("james", "cindy").should.contain("james")
 
 Assert that the list contains any item that matches the lambda (predicate)
 ```java
-expect(listOf(1, 2)).toContain { it > 1 }
-listOf(1, 2).should.contain { it > 1 }
+expect(listOf(1, 2)).toMatchLambda { it > 1 }
+listOf(1, 2).should.matchLambda { it > 1 }
 ```
 
 ## toContainAll
@@ -410,13 +410,13 @@ listOf("james", "cindy").should.notContain("tsu")
 
 Assert that the list does not have any item that matches the lambda (predicate)
 ```java
-expect(listOf(1, 2)).toNotContain { it > 2 }
-listOf(1, 2).should.notContain { it > 2 }
+expect(listOf(1, 2)).toNotMatchLambda { it > 2 }
+listOf(1, 2).should.notMatchLambda { it > 2 }
 ```
 
 ## toNotContainAny
 
-Assert that the list does not contain any of this items
+Assert that the list does not contain any of these items
 ```java
 expect(listOf("james", "cindy")).toNotContainAny(listOf("tsu"))
 listOf("james", "cindy").should.notContainAny(listOf("tsu"))
