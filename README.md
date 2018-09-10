@@ -15,7 +15,7 @@ Add `expect-kt` as a test dependency
 
 ```groovy
 dependencies {
-    testImplementation 'com.github.tsuharesu:expect-kt:0.8.0'
+    testImplementation 'com.tsuharesu:expect-kt:0.8.0'
 }
 ```
 
