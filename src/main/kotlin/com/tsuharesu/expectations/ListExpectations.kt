@@ -6,6 +6,8 @@
 
 package com.tsuharesu.expectations
 
+import kotlin.reflect.KClass
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 fun <T> Expectation<List<T>>.toBeEmpty(): ExpectationChain<List<T>> {
@@ -19,17 +21,25 @@ fun <T> Expectation<List<T>>.toNotBeEmpty(): ExpectationChain<List<T>> {
 }
 
 fun <T> Expectation<List<T>>.toHaveSize(value: Int): ExpectationChain<List<T>> {
-    assertTrue(target.size == value)
+    assertEquals(target.size, value)
     return ExpectationChain(this)
 }
 
 fun <T, E> Expectation<List<T>>.toHaveSameSizeAs(value: List<E>): ExpectationChain<List<T>> {
-    assertTrue(target.size == value.size)
+    assertEquals(target.size, value.size)
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toContain(value: T): ExpectationChain<List<T>> {
     assertTrue(target.contains(value))
+    return ExpectationChain(this)
+}
+
+fun <T> Expectation<List<T>>.toHaveInstanceOfItemAt(
+    item: KClass<*>,
+    index: Int
+): ExpectationChain<List<T>> {
+    assertTrue(item.java.isInstance(target[index]))
     return ExpectationChain(this)
 }
 
@@ -74,12 +84,12 @@ fun <T> Expectation<List<T>>.toNotContainNull(): ExpectationChain<List<T>> {
 }
 
 fun <T> Expectation<List<T>>.toStartWith(value: T): ExpectationChain<List<T>> {
-    assertTrue(target.first() == value)
+    assertEquals(target.first(), value)
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toEndWith(value: T): ExpectationChain<List<T>> {
-    assertTrue(target.last() == value)
+    assertEquals(target.last(), value)
     return ExpectationChain(this)
 }
 
@@ -89,7 +99,7 @@ fun <T> Expectation<List<T>>.toHaveItemAt(item: T, index: Int): ExpectationChain
 }
 
 fun <T> Expectation<List<T>>.toNotContainDuplicates(): ExpectationChain<List<T>> {
-    assertTrue(target.size == target.distinct().size)
+    assertEquals(target.size, target.distinct().size)
     return ExpectationChain(this)
 }
 
@@ -122,6 +132,11 @@ fun <T, E> Should<List<T>>.haveSameSizeAs(value: List<E>): ShouldChain<List<T>> 
 
 fun <T> Should<List<T>>.contain(value: T): ShouldChain<List<T>> {
     expectation.toContain(value)
+    return ShouldChain(this)
+}
+
+fun <T> Should<List<T>>.haveInstanceOfItemAt(item: KClass<*>, index: Int): ShouldChain<List<T>> {
+    expectation.toHaveInstanceOfItemAt(item, index)
     return ShouldChain(this)
 }
 

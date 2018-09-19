@@ -358,6 +358,14 @@ expect(listOf("james", "cindy")).toContain("james")
 listOf("james", "cindy").should.contain("james")
 ```
 
+## toHaveInstanceOfItemAt
+
+Assert that the list contains an instance of this class at that index
+```java
+expect(listOf("james", 1)).toHaveInstanceOfItemAt(String::class, 0)
+listOf("james", 1).should.haveInstanceOfItemAt(String::class, 0)
+```
+
 ## toMatchLambda
 
 Assert that the list contains any item that matches the lambda (predicate)
