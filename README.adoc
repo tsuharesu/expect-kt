@@ -244,10 +244,31 @@ expect("james").toNotBeBlank()
 Assert that a string is equal to another string regardless of case
 (ignore case comparation)
 
-....
+[source,kotlin]
+----
 expect("JAMES").toBeEquivalentTo("james")
 "JAMES".should.beEquivalentTo("james")
-....
+----
+
+=== toStartWith/startWith
+
+Assert that a string starts with another string.
+
+[source,kotlin]
+----
+expect("james").toStartWith("j")
+"james".should.startWith("j")
+----
+
+=== toStartWithEquivalent/startWithEquivalent
+
+Assert that a string starts with another string regardless of case.
+
+[source,kotlin]
+----
+expect("james").toStartWithEquivalent("JA")
+"james".should.startWithEquivalent("JA")
+----
 
 === toEndWith/endWith
 
@@ -309,34 +330,14 @@ expect("JAMES").toNotContainEquivalent("ei")
 "JAMES".should.notContainEquivalent("ei")
 ----
 
-=== toStartWith/startWith
-
-Assert that a string starts with another string.
-
-[source,kotlin]
-----
-expect("james").toStartWith("j")
-"james".should.startWith("j")
-----
-
-=== toStartWithEquivalent/startWithEquivalent
-
-Assert that a string starts with another string regardless of case.
-
-[source,kotlin]
-----
-expect("james").toStartWithEquivalent("JA")
-"james".should.startWithEquivalent("JA")
-----
-
 === toMatch/match
 
 Assert that a string matches the given regex.
 
 [source,kotlin]
 ----
-expect("james").toMatch("^james$")
-"james".should.match("^james$")
+expect("james").toMatch(Regex("^james$"))
+"james".should.match(Regex("^james$"))
 ----
 
 == Numeric Assertions (currently Int, Long, Double, Float)
