@@ -1,497 +1,597 @@
-# expect-kt
-[![CircleCI](https://circleci.com/gh/tsuharesu/expect-kt.svg?style=svg)](https://circleci.com/gh/tsuharesu/expect-kt) [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+= expect-kt
+:toc: preamble
+:version: 0.8.0
 
-expect-kt is a set of fluent assertions for Kotlin, for a better readability of your code than using `kotlin.test`. Each type has a set of extension functions that allow you to check certain specifics that relate to that type.
+https://circleci.com/gh/tsuharesu/expect-kt[image:https://circleci.com/gh/tsuharesu/expect-kt.svg?style=svg[CircleCI]]
+https://ktlint.github.io/[image:https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg[ktlint]]
 
-This project is a fork of https://github.com/kouphax/expect.kt. That project was abandoned (since 2012 without commits) and lacking a way to use with Gradle/maven. I updated it so I can use on some projects, and hope to improve some areas and add new features (like better messages and new extensions).
+expect-kt is a set of fluent assertions for Kotlin, for a better readability of your code than using `kotlin.test`. Each type has a set
+of extension functions that allow you to check certain specifics that relate to that type.
 
-This is too a way for me to understand [Kotlin](http://kotlinlang.org/) and explore its features. The original project was inspired by [FluentAssertions for .NET](http://fluentassertions.com/) and now I'm inpired by [AssertJ](http://joel-costigliola.github.io/assertj/) too.
+This project is a fork of https://github.com/kouphax/expect.kt. That project was abandoned (since 2012 without commits) and lacking a way to
+use with Gradle/maven. I updated it so I can use on some projects, and hope to improve some areas and add new features (like better messages
+and new extensions).
 
-# Gradle dependency
+This is too a way for me to understand http://kotlinlang.org/[Kotlin] and explore its features. The original project was inspired by
+http://fluentassertions.com/[FluentAssertions for .NET] and now I’m inpired by http://joel-costigliola.github.io/assertj/[AssertJ] too.
 
-[![Download](https://api.bintray.com/packages/tsuharesu/maven/expect-kt/images/download.svg?version=0.8.0)](https://bintray.com/tsuharesu/maven/expect-kt/0.8.0)
+== Gradle dependency
+
+https://bintray.com/tsuharesu/maven/expect-kt/{version}[image:https://api.bintray.com/packages/tsuharesu/maven/expect-kt/images/download.svg?version={version}[Download]]
 
 Add `expect-kt` as a test dependency
 
-```groovy
+[source,groovy,subs=attributes]
+----
 dependencies {
-    testImplementation 'com.tsuharesu:expect-kt:0.8.0'
+    testImplementation 'com.tsuharesu:expect-kt:{version}'
 }
-```
+----
 
-# Syntax
+== Syntax
 
 expect-kt allows you to use two different approaches to define an assertion:
 
-## Expect Syntax
+=== Expect Syntax
 
-Expect syntax offers typical `expect(something).toBeInACertainState` style of grammar that everybody uses. Like this:
-```java
+Expect syntax offers typical `expect(something).toBeInACertainState`
+style of grammar that everybody uses. Like this:
+
+[source,kotlin]
+----
 expect("james").toBe("james")
-```
+----
 
-## Fluent Syntax
+=== Fluent Syntax
 
-It is also possible to use a more fluent syntax (some kind of BDD) to make the same assertion
-```java
+It is also possible to use a more fluent syntax (some kind of BDD) to
+make the same assertion
+
+[source,kotlin]
+----
 "james".should.be("james")
-```
+----
 
-# Chaining
+== Chaining
 
 expect-kt allows you to chain assertions to keep things really neat and tidy.
-```java
+
+[source,kotlin]
+----
 expect("james").toStartWith("j").and.toEndWith("s")
-```
+----
 
 Or, in fluent syntax.
-```java
+
+[source,kotlin]
+----
 "james".should.startWith("j").and.endWith("s")
-```
+----
 
 Or using blocks, because sometimes you want lots of checks.
-```java
+
+[source,kotlin]
+----
 expect("james") {
     toStartWith("j")
     toEndWith("s")
 }
-```
+----
 
-```java
+[source,kotlin]
+----
 "james".should {
     startWith("j")
     endWith("s")
 }
-```
-# Standard Assertions
+----
+
+== Standard Assertions
 
 There are a few assertions that can be used on any type
 
-## toBe/be
+=== toBe/be
 
 Assert that the value should be equal to the other
-```java
+
+[source,kotlin]
+----
 expect("james").toBe("james")
 "james".should.be("james")
-```
+----
 
-## toNotBe/notBe
+=== toNotBe/notBe
 
 Assert that the value should NOT be equal the other
-```java
+
+[source,kotlin]
+----
 expect("james").toNotBe("jaime")
 "james".should.notBe("jaime")
-```
+----
 
-## toBeNull/beNull
+=== toBeNull/beNull
 
 Assert that the value is null
-```java
+
+[source,kotlin]
+----
 expect(null).toBeNull()
 null.should.beNull()
-```
+----
 
-## toNotBeNull/notBeNull
+=== toNotBeNull/notBeNull
 
 Assert that the value is NOT null
-```java
+
+[source,kotlin]
+----
 expect("james").toNotBeNull()
 "james".should.notBeNull()
-```
+----
 
-## toBeInstanceOf/beInstanceOf
+=== toBeInstanceOf/beInstanceOf
 
-Assert that the value should of some class. 
-```java
+Assert that the value should of some class.
+
+[source,kotlin]
+----
 expect("james").toBeInstanceOf(String::class)
 expect(SomeTestClass()).toBeInstanceOf(SomeTestClass::class)
 "james".should.beInstanceOf(String::class)
-```
+----
 
-_It does not work very well with numbers (Int, Float, ...)_
+_It does not work very well with numbers (Int, Float, …)_
 
-# Logic Assertions
+== Logic Assertions
 
-## toBeTrue/beTrue
+=== toBeTrue/beTrue
 
 Assert that the value is `true`
-```java
+
+[source,kotlin]
+----
 expect(true).toBeTrue()
 true.should.beTrue()
-```
+----
 
-## toNotBeTrue/notBeTrue
+=== toNotBeTrue/notBeTrue
 
 Assert that the value is NOT `true`
-```java
+
+[source,kotlin]
+----
 expect(false).toNotBeTrue()
 false.should.notBeTrue()
-```
+----
 
-## toBeFalse/beFalse
+=== toBeFalse/beFalse
 
 Assert that the value is `false`
-```java
+
+[source,kotlin]
+----
 expect(false).toBeFalse()
 false.should.beFalse()
-```
+----
 
-## toNotBeFalse/notBeFalse
+=== toNotBeFalse/notBeFalse
 
 Assert that the value is NOT `false`
-```java
+
+[source,kotlin]
+----
 expect(true).toNotBeFalse()
 true.should.notBeFalse()
-```
+----
 
-# String Assertions
+== String Assertions
 
-## toBeEmpty/beEmpty
+=== toBeEmpty/beEmpty
 
 Assert that a string is empty ("")
-```java
+
+[source,kotlin]
+----
 expect("").toBeEmpty()
 "".should.beEmpty()
-```
+----
 
-## toNotBeEmpty/beNotEmpty
+=== toNotBeEmpty/beNotEmpty
 
 Assert that a string is NOT empty ("")
-```java
+
+[source,kotlin]
+----
 expect("  ").toNotBeEmpty()
 "  ".should.beNotEmpty()
-```
+----
 
-## toHaveLength/haveLength
+=== toHaveLength/haveLength
 
 Assert that a string is of a certain length
-```java
+
+[source,kotlin]
+----
 expect("james").toHaveLength(5)
 "james".should.haveLength(5)
-```
+----
 
-## toBeBlank/beBlank
+=== toBeBlank/beBlank
 
-Assert that a string is blank, in that it is empty or contains only whitespace
-```java
+Assert that a string is blank, in that it is empty or contains only
+whitespace
+
+[source,kotlin]
+----
 expect("   ").toBeBlank()
 "    ".should.beBlank()
-```
+----
 
-## toNotBeBlank/notBeBlank
+=== toNotBeBlank/notBeBlank
 
-Assert that a string is not blank, in that it isn't empty or contains more than whitespace
-```java
+Assert that a string is not blank, in that it isn’t empty or contains
+more than whitespace
+
+[source,kotlin]
+----
 expect("james").toNotBeBlank()
 "james".should.notBeBlank()
-```
+----
 
-## toBeEquivalentTo/beEquivalentTo
+=== toBeEquivalentTo/beEquivalentTo
 
-Assert that a string is equal to another string regardless of case (ignore case comparation)
-```
+Assert that a string is equal to another string regardless of case
+(ignore case comparation)
+
+....
 expect("JAMES").toBeEquivalentTo("james")
 "JAMES".should.beEquivalentTo("james")
-```
+....
 
-## toEndWith/endWith
+=== toEndWith/endWith
 
 Assert that a string ends with another string
-```java
+
+[source,kotlin]
+----
 expect("James").toEndWith("es")
 "James".should.endWith("es")
-```
+----
 
-## toEndWithEquivalent/endWithEquivalent
+=== toEndWithEquivalent/endWithEquivalent
 
 Assert that a string ends with another string regardless of case
-```java
+
+[source,kotlin]
+----
 expect("JAMES").toEndWithEquivalent("es")
 "JAMES".should.endWithEquivalent("es")
-```
+----
 
-## toContain/contain
+=== toContain/contain
 
 Assert that a string contains another string
-```java
+
+[source,kotlin]
+----
 expect("james").toContain("am")
 "james".should.contain("am")
-```
+----
 
-## toContainEquivalent/containEquivalent
+=== toContainEquivalent/containEquivalent
 
 Assert that a string contains another string regardless of case.
-```java
+
+[source,kotlin]
+----
 expect("JAMES").toContainEquivalent("am")
 "JAMES".should.containEquivalent("am")
-```
+----
 
-## toNotContain/notContain
+=== toNotContain/notContain
 
-Assert that a string doesn't contain another string.
-```java
+Assert that a string doesn’t contain another string.
+
+[source,kotlin]
+----
 expect("james").toNotContain("ei")
 "james".should.notContain("ei")
-```
+----
 
-## toNotContainEquivalent/notContainEquivalent
+=== toNotContainEquivalent/notContainEquivalent
 
-Assert that a string doesn't contain another string regardless of case.
-```java
+Assert that a string doesn’t contain another string regardless of case.
+
+[source,kotlin]
+----
 expect("JAMES").toNotContainEquivalent("ei")
 "JAMES".should.notContainEquivalent("ei")
-```
+----
 
-## toStartWith/startWith
+=== toStartWith/startWith
 
 Assert that a string starts with another string.
-```java
+
+[source,kotlin]
+----
 expect("james").toStartWith("j")
 "james".should.startWith("j")
-```
+----
 
-## toStartWithEquivalent/startWithEquivalent
+=== toStartWithEquivalent/startWithEquivalent
 
 Assert that a string starts with another string regardless of case.
-```java
+
+[source,kotlin]
+----
 expect("james").toStartWithEquivalent("JA")
 "james".should.startWithEquivalent("JA")
-```
+----
 
-## toMatch/match
+=== toMatch/match
 
 Assert that a string matches the given regex.
-```java
+
+[source,kotlin]
+----
 expect("james").toMatch("^james$")
 "james".should.match("^james$")
-```
+----
 
-# Numeric Assertions (currently Int, Long, Double, Float)
+== Numeric Assertions (currently Int, Long, Double, Float)
 
-## toBeGreaterOrEqualTo/beGreaterOrEqualTo
+=== toBeGreaterOrEqualTo/beGreaterOrEqualTo
 
 Assert that a number is greater than or equal to another
-```java
+
+[source,kotlin]
+----
 expect(2).toBeGreaterOrEqualTo(1)
 2.should.beGreaterOrEqualTo(1)
-```
+----
 
-## toBeGreaterThan/beGreaterThan
+=== toBeGreaterThan/beGreaterThan
 
 Assert that a number is greater than to another
-```java
+
+[source,kotlin]
+----
 expect(2).toBeGreaterThan(1)
 2.should.beGreaterThan(1)
-```
+----
 
-## toBeLessOrEqualTo/beLessOrEqualTo
+=== toBeLessOrEqualTo/beLessOrEqualTo
 
 Assert that a number is less than or equal to another
-```java
+
+[source,kotlin]
+----
 expect(1).toBeLessOrEqualTo(2)
 1.should.beLessOrEqualTo(2)
-```
+----
 
-## toBeLessThan/beLessThan
+=== toBeLessThan/beLessThan
 
 Assert that a number is less than to another
-```java
+
+[source,kotlin]
+----
 expect(1).toBeLessThan(2)
 1.should.beLessThan(2)
-```
+----
 
-## toBeInRange/beInRange
+=== toBeInRange/beInRange
 
 Assert that a number is within the lower and upper bounds passed in
-```java
+
+[source,kotlin]
+----
 expect(2).toBeInRange(1, 3)
 2.should.beInRange(1, 3)
-```
+----
 
-## toBeApproximately/beApproximately
+=== toBeApproximately/beApproximately
 
 Assert that a number is approximately another - the level of error is defined by the tolerance value (+/- tolerance)
-```java
+
+[source,kotlin]
+----
 expect(2f).toBeApproximately(2.1f, 0.1f)
 2f.should.beApproximately(2.1f, 0.1f)
-```
+----
 
-# Collection Assertions (currently List)
+== Collection Assertions (currently List)
 
-## toBeEmpty
+=== toBeEmpty
 
-Assert that the list don't have any items
-```java
+Assert that the list don’t have any items
+
+[source,kotlin]
+----
 expect(listOf<String>()).toBeEmpty()
 listOf<String>().should.beEmpty()
-```
+----
 
-## toNotBeEmpty
+=== toNotBeEmpty
 
 Assert that the list contain items
-```java
+
+[source,kotlin]
+----
 expect(listOf("james")).toNotBeEmpty()
 listOf("james").should.notBeEmpty()
-```
+----
 
-## toHaveSize
+=== toHaveSize
 
 Assert that the list contains x items
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toHaveSize(2)
 listOf("james", "cindy").should.haveSize(2)
-```
+----
 
-## toHaveSameSizeAs
+=== toHaveSameSizeAs
 
-Assert that the list contains the same of items as other list (same type or not)
-```java
+Assert that the list contains the same of items as other list (same type
+or not)
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toHaveSameSizeAs(listOf(1, 2))
 listOf("james", "cindy").should.haveSameSizeAs(listOf(1, 2))
-```
+----
 
-## toContain
+=== toContain
 
 Assert that the list contains this item
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toContain("james")
 listOf("james", "cindy").should.contain("james")
-```
+----
 
-## toHaveInstanceOfItemAt
+=== toHaveInstanceOfItemAt
 
 Assert that the list contains an instance of this class at that index
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", 1)).toHaveInstanceOfItemAt(String::class, 0)
 listOf("james", 1).should.haveInstanceOfItemAt(String::class, 0)
-```
+----
 
-## toMatchLambda
+=== toMatchLambda
 
-Assert that the list contains any item that matches the lambda (predicate)
-```java
+Assert that the list contains any item that matches the lambda
+(predicate)
+
+[source,kotlin]
+----
 expect(listOf(1, 2)).toMatchLambda { it > 1 }
 listOf(1, 2).should.matchLambda { it > 1 }
-```
+----
 
-## toContainAll
+=== toContainAll
 
 Assert that the list contains all this items
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toContainAll(listOf("james"))
 listOf("james", "cindy").should.containAll(listOf("james"))
-```
+----
 
-## toOnlyContain
+=== toOnlyContain
 
 Assert that all items in the list matches the lambda (predicate)
-```java
+
+[source,kotlin]
+----
 expect(listOf(2, 4, 6)).toOnlyContain { it.mod(2) == 0 }
 listOf(2, 4, 6).should.onlyContain { it.mod(2) == 0 }
-```
+----
 
-## toContainNull
+=== toContainNull
 
 Assert that the list contains a null value
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", null)).toContainNull()
 listOf("james", null).should.containNull()
-```
+----
 
-## toNotContain
+=== toNotContain
 
 Assert that the list does not contain this item
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toNotContain("tsu")
 listOf("james", "cindy").should.notContain("tsu")
-```
+----
 
-## toNotMatchLambda
+=== toNotMatchLambda
 
-Assert that the list does not have any item that matches the lambda (predicate)
-```java
+Assert that the list does not have any item that matches the lambda
+(predicate)
+
+[source,kotlin]
+----
 expect(listOf(1, 2)).toNotMatchLambda { it > 2 }
 listOf(1, 2).should.notMatchLambda { it > 2 }
-```
+----
 
-## toNotContainAny
+=== toNotContainAny
 
 Assert that the list does not contain any of these items
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toNotContainAny(listOf("tsu"))
 listOf("james", "cindy").should.notContainAny(listOf("tsu"))
-```
+----
 
-## toNotContainNull
+=== toNotContainNull
 
 Assert that the list does not contain null
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toNotContainNull()
 listOf("james", "cindy").should.notContainNull()
-```
+----
 
-## toStartWith
+=== toStartWith
 
 Assert that the list first item is this
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toStartWith("james")
 listOf("james", "cindy").should.startWith("james")
-```
+----
 
-## toEndWith
+=== toEndWith
 
 Assert that the list last item is this
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toEndWith("cindy")
 listOf("james", "cindy").should.endWith("cindy")
-```
+----
 
-## toHaveItemAt
+=== toHaveItemAt
 
 Assert that the list have a specific item at a position
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toHaveItemAt("cindy", 1)
 listOf("james", "cindy").should.haveItemAt("cindy", 1)
-```
+----
 
-## toNotContainDuplicates
+=== toNotContainDuplicates
 
 Assert that the list does not contains duplicated items
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toNotContainDuplicates()
 listOf("james", "cindy").should.notContainDuplicates()
-```
+----
 
-## toBeSubsetOf
+=== toBeSubsetOf
 
 Assert that this list is a subset of another list
-```java
+
+[source,kotlin]
+----
 expect(listOf("james", "cindy")).toBeSubsetOf(listOf("james", "cindy", "tsu", "aphrodite"))
 listOf("james", "cindy").should.beSubsetOf(listOf("james", "cindy", "tsu", "aphrodite"))
-```
-
-
-<!--
-> TODO: This stuff is still in development and very subject to change.
-
-# Dictionary Assertions
-
-## toEqual
-## toNotEqual
-## toBeEmpty
-## toNotBeEmpty
-## toContainKey
-## toNotContainKey
-## toContainValue
-## toNotContainValue
-## toHaveCount
-## toContain - keyvaluepair
-
-# Exception Assertions
-
-## toThrow
-## toThrow&lt;TException>
-## toNotThrow
-## toNotThrow&lt;TException>
-
--->
+----
