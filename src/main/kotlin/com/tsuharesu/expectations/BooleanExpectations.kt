@@ -6,15 +6,16 @@
 
 package com.tsuharesu.expectations
 
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 fun Expectation<Boolean>.toBeTrue(): ExpectationChain<Boolean> {
-    assertTrue(target)
+    assertTrue(target, "$target expected to be true")
     return ExpectationChain(this)
 }
 
 fun Expectation<Boolean>.toBeFalse(): ExpectationChain<Boolean> {
-    assertTrue(!target)
+    assertFalse(target, "$target expected to be false")
     return ExpectationChain(this)
 }
 
