@@ -1,6 +1,6 @@
 = expect-kt
 :toc: preamble
-:version: 0.8.0
+:version: 0.9.0
 
 https://circleci.com/gh/tsuharesu/expect-kt[image:https://circleci.com/gh/tsuharesu/expect-kt.svg?style=svg[CircleCI]]
 https://ktlint.github.io/[image:https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg[ktlint]]

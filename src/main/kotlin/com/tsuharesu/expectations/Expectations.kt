@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2017 Tsuharesu Luciel
+ * Copyright (c) 2018 Tsuharesu
  */
 
 package com.tsuharesu.expectations
