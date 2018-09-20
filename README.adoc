@@ -595,3 +595,30 @@ Assert that this list is a subset of another list
 expect(listOf("james", "cindy")).toBeSubsetOf(listOf("james", "cindy", "tsu", "aphrodite"))
 listOf("james", "cindy").should.beSubsetOf(listOf("james", "cindy", "tsu", "aphrodite"))
 ----
+
+== Extending expect-kt
+
+Expectations in expect-kt are https://kotlinlang.org/docs/reference/extensions.html[extension functions] to `Expectation` and `Should` . If you want a expectation function that don't already exist, you can create one in your files as this:
+
+[source,kotlin]
+----
+fun Expectation<Type>.toBeSomething(something: Type): ExpectationChain<Type> {
+    assertTrue(target.doSomething())
+    return ExpectationChain(this)
+}
+
+fun Should<Type>.beSomething(something: Type): ShouldChain<Type> {
+    expectation.toBeSomething(value)
+    return ShouldChain(this)
+}
+----
+
+Where:
+
+- `Type` is the class you are testing. For example: Int, String, User (your own class), List<T>
+- `target` is the object of `Type` that your expectation will run against
+- Your method *should* return a ExpectationChain/ShouldChain for that type, so you can chain your calls
+- Your method can receive any number and any type of parameters
+- `Should` extensions usually just call `Expectation` methods because `Should` is a sugar around `Expectation` anyway.
+
+You can check link:src/test/kotlin/com/tsuharesu/expectations/CustomExpectationTests.kt[CustomExpectationTests.kt] to see an example.

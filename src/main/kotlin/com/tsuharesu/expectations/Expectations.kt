@@ -35,7 +35,7 @@ class ShouldChain<T>(val should: Should<T>) {
     val and: Should<T> get() = should
 }
 
-open class Expectation<T>(val target: T) {
+class Expectation<T>(val target: T) {
 
     fun toBeNull(): ExpectationChain<T> {
         assertNull(target)
