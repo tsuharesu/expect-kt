@@ -9,77 +9,77 @@ package com.tsuharesu.expectations
 import kotlin.test.assertTrue
 
 fun Expectation<String>.toBeEmpty(): ExpectationChain<String> {
-    assertTrue(target == "")
+    assertTrue(target.isEmpty(), "$target expected to be empty")
     return ExpectationChain(this)
 }
 
 fun Expectation<String>.toNotBeEmpty(): ExpectationChain<String> {
-    assertTrue(target != "")
+    assertTrue(target.isNotEmpty(), "expected to not be empty")
     return ExpectationChain(this)
 }
 
 fun Expectation<String>.toHaveLengthOf(length: Int): ExpectationChain<String> {
-    assertTrue(target.length == length)
+    assertTrue(target.length == length, "expected to have length $length but have length ${target.length}")
     return ExpectationChain(this)
 }
 
 fun Expectation<String>.toBeBlank(): ExpectationChain<String> {
-    assertTrue(target.trim() == "")
+    assertTrue(target.isBlank(), "$target expected to be blank")
     return ExpectationChain(this)
 }
 
 fun Expectation<String>.toNotBeBlank(): ExpectationChain<String> {
-    assertTrue(target.trim() != "")
+    assertTrue(target.isNotBlank(), "expected to not be blank")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toBeEquivalentTo(comparison: String): ExpectationChain<String> {
-    assertTrue((target).equals(comparison, ignoreCase = true))
+fun Expectation<String>.toBeEquivalentTo(value: String): ExpectationChain<String> {
+    assertTrue(target.equals(value, ignoreCase = true), "$target expected to be equivalent to $value")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toEndWith(comparison: String): ExpectationChain<String> {
-    assertTrue((target).endsWith(comparison))
+fun Expectation<String>.toStartWith(value: String): ExpectationChain<String> {
+    assertTrue(target.startsWith(value), "$target expected to start with $value")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toEndWithEquivalent(comparison: String): ExpectationChain<String> {
-    assertTrue((target).toLowerCase().endsWith(comparison.toLowerCase()))
+fun Expectation<String>.toStartWithEquivalent(value: String): ExpectationChain<String> {
+    assertTrue(target.startsWith(value, ignoreCase = true), "$target expected to start with equivalent to $value")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toContain(comparison: String): ExpectationChain<String> {
-    assertTrue((target).indexOf(comparison) > -1)
+fun Expectation<String>.toEndWith(value: String): ExpectationChain<String> {
+    assertTrue((target).endsWith(value), "$target expected to end with $value")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toContainEquivalent(comparison: String): ExpectationChain<String> {
-    assertTrue((target).toLowerCase().indexOf(comparison.toLowerCase()) > -1)
+fun Expectation<String>.toEndWithEquivalent(value: String): ExpectationChain<String> {
+    assertTrue(target.endsWith(value, ignoreCase = true), "$target expected to end with equivalent to $value")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toNotContain(comparison: String): ExpectationChain<String> {
-    assertTrue((target).indexOf(comparison) == -1)
+fun Expectation<String>.toContain(value: String): ExpectationChain<String> {
+    assertTrue(target.contains(value), "$target expected to contain $value")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toNotContainEquivalent(comparison: String): ExpectationChain<String> {
-    assertTrue((target).toLowerCase().indexOf(comparison.toLowerCase()) == -1)
+fun Expectation<String>.toContainEquivalent(value: String): ExpectationChain<String> {
+    assertTrue(target.contains(value, ignoreCase = true), "$target expected to contain equivalent to $value")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toStartWith(comparison: String): ExpectationChain<String> {
-    assertTrue((target).startsWith(comparison))
+fun Expectation<String>.toNotContain(value: String): ExpectationChain<String> {
+    assertTrue(!target.contains(value), "$target expected to not contain $value")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toStartWithEquivalent(comparison: String): ExpectationChain<String> {
-    assertTrue((target).toLowerCase().startsWith(comparison.toLowerCase()))
+fun Expectation<String>.toNotContainEquivalent(value: String): ExpectationChain<String> {
+    assertTrue(!target.contains(value, ignoreCase = true), "$target expected to not contain equivalent to $value")
     return ExpectationChain(this)
 }
 
-fun Expectation<String>.toMatch(regex: String): ExpectationChain<String> {
-    assertTrue((target).matches(regex.toRegex()))
+fun Expectation<String>.toMatch(value: Regex): ExpectationChain<String> {
+    assertTrue(target.matches(value), "$target expected to match $value")
     return ExpectationChain(this)
 }
 
@@ -110,52 +110,52 @@ fun Should<String>.notBeBlank(): ShouldChain<String> {
     return ShouldChain(this)
 }
 
-fun Should<String>.beEquivalentTo(comparison: String): ShouldChain<String> {
-    expectation.toBeEquivalentTo(comparison)
+fun Should<String>.beEquivalentTo(value: String): ShouldChain<String> {
+    expectation.toBeEquivalentTo(value)
     return ShouldChain(this)
 }
 
-fun Should<String>.endWith(comparison: String): ShouldChain<String> {
-    expectation.toEndWith(comparison)
+fun Should<String>.endWith(value: String): ShouldChain<String> {
+    expectation.toEndWith(value)
     return ShouldChain(this)
 }
 
-fun Should<String>.endWithEquivalent(comparison: String): ShouldChain<String> {
-    expectation.toEndWithEquivalent(comparison)
+fun Should<String>.endWithEquivalent(value: String): ShouldChain<String> {
+    expectation.toEndWithEquivalent(value)
     return ShouldChain(this)
 }
 
-fun Should<String>.contain(comparison: String): ShouldChain<String> {
-    expectation.toContain(comparison)
+fun Should<String>.contain(value: String): ShouldChain<String> {
+    expectation.toContain(value)
     return ShouldChain(this)
 }
 
-fun Should<String>.containEquivalent(comparison: String): ShouldChain<String> {
-    expectation.toContainEquivalent(comparison)
+fun Should<String>.containEquivalent(value: String): ShouldChain<String> {
+    expectation.toContainEquivalent(value)
     return ShouldChain(this)
 }
 
-fun Should<String>.notContain(comparison: String): ShouldChain<String> {
-    expectation.toNotContain(comparison)
+fun Should<String>.notContain(value: String): ShouldChain<String> {
+    expectation.toNotContain(value)
     return ShouldChain(this)
 }
 
-fun Should<String>.notContainEquivalent(comparison: String): ShouldChain<String> {
-    expectation.toNotContainEquivalent(comparison)
+fun Should<String>.notContainEquivalent(value: String): ShouldChain<String> {
+    expectation.toNotContainEquivalent(value)
     return ShouldChain(this)
 }
 
-fun Should<String>.startWith(comparison: String): ShouldChain<String> {
-    expectation.toStartWith(comparison)
+fun Should<String>.startWith(value: String): ShouldChain<String> {
+    expectation.toStartWith(value)
     return ShouldChain(this)
 }
 
-fun Should<String>.startWithEquivalent(comparison: String): ShouldChain<String> {
-    expectation.toStartWithEquivalent(comparison)
+fun Should<String>.startWithEquivalent(value: String): ShouldChain<String> {
+    expectation.toStartWithEquivalent(value)
     return ShouldChain(this)
 }
 
-fun Should<String>.match(regex: String): ShouldChain<String> {
-    expectation.toMatch(regex)
+fun Should<String>.match(value: Regex): ShouldChain<String> {
+    expectation.toMatch(value)
     return ShouldChain(this)
 }

@@ -244,10 +244,31 @@ expect("james").toNotBeBlank()
 Assert that a string is equal to another string regardless of case
 (ignore case comparation)
 
-....
+[source,kotlin]
+----
 expect("JAMES").toBeEquivalentTo("james")
 "JAMES".should.beEquivalentTo("james")
-....
+----
+
+=== toStartWith/startWith
+
+Assert that a string starts with another string.
+
+[source,kotlin]
+----
+expect("james").toStartWith("j")
+"james".should.startWith("j")
+----
+
+=== toStartWithEquivalent/startWithEquivalent
+
+Assert that a string starts with another string regardless of case.
+
+[source,kotlin]
+----
+expect("james").toStartWithEquivalent("JA")
+"james".should.startWithEquivalent("JA")
+----
 
 === toEndWith/endWith
 
@@ -309,34 +330,14 @@ expect("JAMES").toNotContainEquivalent("ei")
 "JAMES".should.notContainEquivalent("ei")
 ----
 
-=== toStartWith/startWith
-
-Assert that a string starts with another string.
-
-[source,kotlin]
-----
-expect("james").toStartWith("j")
-"james".should.startWith("j")
-----
-
-=== toStartWithEquivalent/startWithEquivalent
-
-Assert that a string starts with another string regardless of case.
-
-[source,kotlin]
-----
-expect("james").toStartWithEquivalent("JA")
-"james".should.startWithEquivalent("JA")
-----
-
 === toMatch/match
 
 Assert that a string matches the given regex.
 
 [source,kotlin]
 ----
-expect("james").toMatch("^james$")
-"james".should.match("^james$")
+expect("james").toMatch(Regex("^james$"))
+"james".should.match(Regex("^james$"))
 ----
 
 == Numeric Assertions (currently Int, Long, Double, Float)
@@ -454,27 +455,6 @@ expect(listOf("james", "cindy")).toContain("james")
 listOf("james", "cindy").should.contain("james")
 ----
 
-=== toHaveInstanceOfItemAt
-
-Assert that the list contains an instance of this class at that index
-
-[source,kotlin]
-----
-expect(listOf("james", 1)).toHaveInstanceOfItemAt(String::class, 0)
-listOf("james", 1).should.haveInstanceOfItemAt(String::class, 0)
-----
-
-=== toMatchLambda
-
-Assert that the list contains any item that matches the lambda
-(predicate)
-
-[source,kotlin]
-----
-expect(listOf(1, 2)).toMatchLambda { it > 1 }
-listOf(1, 2).should.matchLambda { it > 1 }
-----
-
 === toContainAll
 
 Assert that the list contains all this items
@@ -483,16 +463,6 @@ Assert that the list contains all this items
 ----
 expect(listOf("james", "cindy")).toContainAll(listOf("james"))
 listOf("james", "cindy").should.containAll(listOf("james"))
-----
-
-=== toOnlyContain
-
-Assert that all items in the list matches the lambda (predicate)
-
-[source,kotlin]
-----
-expect(listOf(2, 4, 6)).toOnlyContain { it.mod(2) == 0 }
-listOf(2, 4, 6).should.onlyContain { it.mod(2) == 0 }
 ----
 
 === toContainNull
@@ -505,6 +475,16 @@ expect(listOf("james", null)).toContainNull()
 listOf("james", null).should.containNull()
 ----
 
+=== toNotContainNull
+
+Assert that the list does not contain null
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toNotContainNull()
+listOf("james", "cindy").should.notContainNull()
+----
+
 === toNotContain
 
 Assert that the list does not contain this item
@@ -513,17 +493,6 @@ Assert that the list does not contain this item
 ----
 expect(listOf("james", "cindy")).toNotContain("tsu")
 listOf("james", "cindy").should.notContain("tsu")
-----
-
-=== toNotMatchLambda
-
-Assert that the list does not have any item that matches the lambda
-(predicate)
-
-[source,kotlin]
-----
-expect(listOf(1, 2)).toNotMatchLambda { it > 2 }
-listOf(1, 2).should.notMatchLambda { it > 2 }
 ----
 
 === toNotContainAny
@@ -536,14 +505,36 @@ expect(listOf("james", "cindy")).toNotContainAny(listOf("tsu"))
 listOf("james", "cindy").should.notContainAny(listOf("tsu"))
 ----
 
-=== toNotContainNull
+=== anyToMatchLambda
 
-Assert that the list does not contain null
+Assert that the list contains any item that matches the lambda
+(predicate)
 
 [source,kotlin]
 ----
-expect(listOf("james", "cindy")).toNotContainNull()
-listOf("james", "cindy").should.notContainNull()
+expect(listOf(1, 2)).anyToMatchLambda { it > 1 }
+listOf(1, 2).should.anyMatchLambda { it > 1 }
+----
+
+=== allToMatchLambda
+
+Assert that all items in the list matches the lambda (predicate)
+
+[source,kotlin]
+----
+expect(listOf(2, 4, 6)).allToMatchLambda { it.mod(2) == 0 }
+listOf(2, 4, 6).should.allMatchLambda { it.mod(2) == 0 }
+----
+
+=== noneToMatchLambda
+
+Assert that the list does not have any item that matches the lambda
+(predicate)
+
+[source,kotlin]
+----
+expect(listOf(1, 2)).noneToMatchLambda { it > 2 }
+listOf(1, 2).should.noneMatchLambda { it > 2 }
 ----
 
 === toStartWith
@@ -574,6 +565,16 @@ Assert that the list have a specific item at a position
 ----
 expect(listOf("james", "cindy")).toHaveItemAt("cindy", 1)
 listOf("james", "cindy").should.haveItemAt("cindy", 1)
+----
+
+=== toHaveInstanceOfItemAt
+
+Assert that the list contains an instance of this class at that index
+
+[source,kotlin]
+----
+expect(listOf("james", 1)).toHaveInstanceOfItemAt(String::class, 0)
+listOf("james", 1).should.haveInstanceOfItemAt(String::class, 0)
 ----
 
 === toNotContainDuplicates

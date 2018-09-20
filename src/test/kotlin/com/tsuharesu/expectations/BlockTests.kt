@@ -22,14 +22,14 @@ class BlockTests {
                 toStartWith("j")
                 toEndWith("f")
             }
-        }
+        }.message.should.be("james expected to end with f")
 
         assertFailsWith(AssertionError::class) {
             expect("james") {
                 toStartWith("f")
                 toEndWith("s")
             }
-        }
+        }.message.should.be("james expected to start with f")
     }
 
     @Test
@@ -43,13 +43,13 @@ class BlockTests {
                 startWith("j")
                 endWith("f")
             }
-        }
+        }.message.should.be("james expected to end with f")
 
         assertFailsWith(AssertionError::class) {
             "james".should {
                 startWith("f")
                 endWith("s")
             }
-        }
+        }.message.should.be("james expected to start with f")
     }
 }

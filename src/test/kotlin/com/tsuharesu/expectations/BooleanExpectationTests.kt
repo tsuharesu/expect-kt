@@ -16,7 +16,7 @@ class BooleanExpectationTests {
 
         assertFailsWith(AssertionError::class) {
             expect(false).toBeTrue()
-        }
+        }.message.should.be("false expected to be true")
 
         true.should.beTrue()
 
@@ -31,7 +31,7 @@ class BooleanExpectationTests {
 
         assertFailsWith(AssertionError::class) {
             expect(true).toBeFalse()
-        }
+        }.message.should.be("true expected to be false")
 
         false.should.beFalse()
 

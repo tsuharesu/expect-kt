@@ -7,104 +7,105 @@
 package com.tsuharesu.expectations
 
 import kotlin.reflect.KClass
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 fun <T> Expectation<List<T>>.toBeEmpty(): ExpectationChain<List<T>> {
-    assertTrue(target.isEmpty())
+    assertTrue(target.isEmpty(), "list with size ${target.size} expected to be empty")
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toNotBeEmpty(): ExpectationChain<List<T>> {
-    assertTrue(target.isNotEmpty())
+    assertTrue(target.isNotEmpty(), "list expected to not be empty")
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toHaveSize(value: Int): ExpectationChain<List<T>> {
-    assertEquals(target.size, value)
+    assertTrue(target.size == value, "list with size ${target.size} expected to have size $value")
     return ExpectationChain(this)
 }
 
 fun <T, E> Expectation<List<T>>.toHaveSameSizeAs(value: List<E>): ExpectationChain<List<T>> {
-    assertEquals(target.size, value.size)
-    return ExpectationChain(this)
+    return toHaveSize(value.size)
 }
 
 fun <T> Expectation<List<T>>.toContain(value: T): ExpectationChain<List<T>> {
-    assertTrue(target.contains(value))
-    return ExpectationChain(this)
-}
-
-fun <T> Expectation<List<T>>.toHaveInstanceOfItemAt(
-    item: KClass<*>,
-    index: Int
-): ExpectationChain<List<T>> {
-    assertTrue(item.java.isInstance(target[index]))
-    return ExpectationChain(this)
-}
-
-fun <T> Expectation<List<T>>.toMatchLambda(value: (T) -> Boolean): ExpectationChain<List<T>> {
-    assertTrue(target.any(value))
-    return ExpectationChain(this)
-}
-
-fun <T> Expectation<List<T>>.toOnlyContain(value: (T) -> Boolean): ExpectationChain<List<T>> {
-    assertTrue(target.all(value))
+    assertTrue(target.contains(value), "$target expected to contain $value")
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toContainAll(value: List<T>): ExpectationChain<List<T>> {
-    assertTrue(target.containsAll(value))
+    assertTrue(target.containsAll(value), "$target expected to contain $value")
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toContainNull(): ExpectationChain<List<T>> {
-    assertTrue(target.any { it == null })
-    return ExpectationChain(this)
-}
-
-fun <T> Expectation<List<T>>.toNotContain(value: T): ExpectationChain<List<T>> {
-    assertTrue(!target.contains(value))
-    return ExpectationChain(this)
-}
-
-fun <T> Expectation<List<T>>.toNotMatchLambda(value: (T) -> Boolean): ExpectationChain<List<T>> {
-    assertTrue(target.none(value))
-    return ExpectationChain(this)
-}
-
-fun <T> Expectation<List<T>>.toNotContainAny(value: List<T>): ExpectationChain<List<T>> {
-    assertTrue(value.none { target.contains(it) })
+    assertTrue(target.any { it == null }, "$target expected to contain null")
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toNotContainNull(): ExpectationChain<List<T>> {
-    assertTrue(target.none { it == null })
+    assertTrue(target.none { it == null }, "$target expected to not contain null")
+    return ExpectationChain(this)
+}
+
+fun <T> Expectation<List<T>>.toNotContain(value: T): ExpectationChain<List<T>> {
+    assertTrue(!target.contains(value), "$target expected to not contain $value")
+    return ExpectationChain(this)
+}
+
+fun <T> Expectation<List<T>>.toNotContainAny(value: List<T>): ExpectationChain<List<T>> {
+    assertTrue(value.none { target.contains(it) }, "$target expected to not contain any item of list $value")
+    return ExpectationChain(this)
+}
+
+fun <T> Expectation<List<T>>.anyToMatchLambda(value: (T) -> Boolean): ExpectationChain<List<T>> {
+    assertTrue(target.any(value), "expected to find any item matching the lambda")
+    return ExpectationChain(this)
+}
+
+fun <T> Expectation<List<T>>.allToMatchLambda(value: (T) -> Boolean): ExpectationChain<List<T>> {
+    assertTrue(target.all(value), "expected all items to match the lambda")
+    return ExpectationChain(this)
+}
+
+fun <T> Expectation<List<T>>.noneToMatchLambda(value: (T) -> Boolean): ExpectationChain<List<T>> {
+    assertTrue(target.none(value), "expected that no items matched the lambda")
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toStartWith(value: T): ExpectationChain<List<T>> {
-    assertEquals(target.first(), value)
+    assertTrue(target.first() == value, "expected to start with $value")
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toEndWith(value: T): ExpectationChain<List<T>> {
-    assertEquals(target.last(), value)
+    assertTrue(target.last() == value, "expected to end with $value")
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toHaveItemAt(item: T, index: Int): ExpectationChain<List<T>> {
-    assertTrue(target[index] == item)
+    assertTrue(target[index] == item, "expected to have item $item at index $index")
+    return ExpectationChain(this)
+}
+
+fun <T> Expectation<List<T>>.toHaveInstanceOfItemAt(
+    value: KClass<*>,
+    index: Int
+): ExpectationChain<List<T>> {
+    assertTrue(
+        value.java.isInstance(target[index]),
+        "${target[index]} expected to be instance of ${value.java.simpleName}"
+    )
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toNotContainDuplicates(): ExpectationChain<List<T>> {
-    assertEquals(target.size, target.distinct().size)
+    assertTrue(target.size == target.distinct().size, "expected to not contain duplicates")
     return ExpectationChain(this)
 }
 
 fun <T> Expectation<List<T>>.toBeSubsetOf(value: List<T>): ExpectationChain<List<T>> {
-    assertTrue(value.containsAll(target))
+    assertTrue(value.containsAll(target), "expected to be a subset of $value")
     return ExpectationChain(this)
 }
 
@@ -140,13 +141,13 @@ fun <T> Should<List<T>>.haveInstanceOfItemAt(item: KClass<*>, index: Int): Shoul
     return ShouldChain(this)
 }
 
-fun <T> Should<List<T>>.matchLambda(value: (T) -> Boolean): ShouldChain<List<T>> {
-    expectation.toMatchLambda(value)
+fun <T> Should<List<T>>.anyMatchLambda(value: (T) -> Boolean): ShouldChain<List<T>> {
+    expectation.anyToMatchLambda(value)
     return ShouldChain(this)
 }
 
-fun <T> Should<List<T>>.onlyContain(value: (T) -> Boolean): ShouldChain<List<T>> {
-    expectation.toOnlyContain(value)
+fun <T> Should<List<T>>.allMatchLambda(value: (T) -> Boolean): ShouldChain<List<T>> {
+    expectation.allToMatchLambda(value)
     return ShouldChain(this)
 }
 
@@ -165,8 +166,8 @@ fun <T> Should<List<T>>.notContain(value: T): ShouldChain<List<T>> {
     return ShouldChain(this)
 }
 
-fun <T> Should<List<T>>.notMatchLambda(value: (T) -> Boolean): ShouldChain<List<T>> {
-    expectation.toNotMatchLambda(value)
+fun <T> Should<List<T>>.noneMatchLambda(value: (T) -> Boolean): ShouldChain<List<T>> {
+    expectation.noneToMatchLambda(value)
     return ShouldChain(this)
 }
 

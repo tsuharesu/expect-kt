@@ -9,27 +9,27 @@ package com.tsuharesu.expectations
 import kotlin.test.assertTrue
 
 fun Expectation<Float>.toBeGreaterOrEqualTo(value: Float): ExpectationChain<Float> {
-    assertTrue(target >= value)
+    assertTrue(target >= value, "$target expected to be greater than or equal to $value")
     return ExpectationChain(this)
 }
 
 fun Expectation<Float>.toBeGreaterThan(value: Float): ExpectationChain<Float> {
-    assertTrue(target > value)
+    assertTrue(target > value, "$target expected to be greater than $value")
     return ExpectationChain(this)
 }
 
 fun Expectation<Float>.toBeLessOrEqualTo(value: Float): ExpectationChain<Float> {
-    assertTrue(target <= value)
+    assertTrue(target <= value, "$target expected to be less than or equal to $value")
     return ExpectationChain(this)
 }
 
 fun Expectation<Float>.toBeLessThan(value: Float): ExpectationChain<Float> {
-    assertTrue(target < value)
+    assertTrue(target < value, "$target expected to be less than $value")
     return ExpectationChain(this)
 }
 
 fun Expectation<Float>.toBeInRange(lower: Float, upper: Float): ExpectationChain<Float> {
-    assertTrue(target in lower..upper)
+    assertTrue(target in lower..upper, "$target expected to be between $lower and $upper")
     return ExpectationChain(this)
 }
 
