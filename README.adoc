@@ -1,0 +1,624 @@
+= expect-kt
+:toc: preamble
+:version: 0.8.0
+
+https://circleci.com/gh/tsuharesu/expect-kt[image:https://circleci.com/gh/tsuharesu/expect-kt.svg?style=svg[CircleCI]]
+https://ktlint.github.io/[image:https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg[ktlint]]
+
+expect-kt is a set of fluent assertions for Kotlin, for a better readability of your code than using `kotlin.test`. Each type has a set
+of extension functions that allow you to check certain specifics that relate to that type.
+
+This project is a fork of https://github.com/kouphax/expect.kt. That project was abandoned (since 2012 without commits) and lacking a way to
+use with Gradle/maven. I updated it so I can use on some projects, and hope to improve some areas and add new features (like better messages
+and new extensions).
+
+This is too a way for me to understand http://kotlinlang.org/[Kotlin] and explore its features. The original project was inspired by
+http://fluentassertions.com/[FluentAssertions for .NET] and now I’m inpired by http://joel-costigliola.github.io/assertj/[AssertJ] too.
+
+== Gradle dependency
+
+https://bintray.com/tsuharesu/maven/expect-kt/{version}[image:https://api.bintray.com/packages/tsuharesu/maven/expect-kt/images/download.svg?version={version}[Download]]
+
+Add `expect-kt` as a test dependency
+
+[source,groovy,subs=attributes]
+----
+dependencies {
+    testImplementation 'com.tsuharesu:expect-kt:{version}'
+}
+----
+
+== Syntax
+
+expect-kt allows you to use two different approaches to define an assertion:
+
+=== Expect Syntax
+
+Expect syntax offers typical `expect(something).toBeInACertainState`
+style of grammar that everybody uses. Like this:
+
+[source,kotlin]
+----
+expect("james").toBe("james")
+----
+
+=== Fluent Syntax
+
+It is also possible to use a more fluent syntax (some kind of BDD) to
+make the same assertion
+
+[source,kotlin]
+----
+"james".should.be("james")
+----
+
+== Chaining
+
+expect-kt allows you to chain assertions to keep things really neat and tidy.
+
+[source,kotlin]
+----
+expect("james").toStartWith("j").and.toEndWith("s")
+----
+
+Or, in fluent syntax.
+
+[source,kotlin]
+----
+"james".should.startWith("j").and.endWith("s")
+----
+
+Or using blocks, because sometimes you want lots of checks.
+
+[source,kotlin]
+----
+expect("james") {
+    toStartWith("j")
+    toEndWith("s")
+}
+----
+
+[source,kotlin]
+----
+"james".should {
+    startWith("j")
+    endWith("s")
+}
+----
+
+== Standard Assertions
+
+There are a few assertions that can be used on any type
+
+=== toBe/be
+
+Assert that the value should be equal to the other
+
+[source,kotlin]
+----
+expect("james").toBe("james")
+"james".should.be("james")
+----
+
+=== toNotBe/notBe
+
+Assert that the value should NOT be equal the other
+
+[source,kotlin]
+----
+expect("james").toNotBe("jaime")
+"james".should.notBe("jaime")
+----
+
+=== toBeNull/beNull
+
+Assert that the value is null
+
+[source,kotlin]
+----
+expect(null).toBeNull()
+null.should.beNull()
+----
+
+=== toNotBeNull/notBeNull
+
+Assert that the value is NOT null
+
+[source,kotlin]
+----
+expect("james").toNotBeNull()
+"james".should.notBeNull()
+----
+
+=== toBeInstanceOf/beInstanceOf
+
+Assert that the value should of some class.
+
+[source,kotlin]
+----
+expect("james").toBeInstanceOf(String::class)
+expect(SomeTestClass()).toBeInstanceOf(SomeTestClass::class)
+"james".should.beInstanceOf(String::class)
+----
+
+_It does not work very well with numbers (Int, Float, …)_
+
+== Logic Assertions
+
+=== toBeTrue/beTrue
+
+Assert that the value is `true`
+
+[source,kotlin]
+----
+expect(true).toBeTrue()
+true.should.beTrue()
+----
+
+=== toNotBeTrue/notBeTrue
+
+Assert that the value is NOT `true`
+
+[source,kotlin]
+----
+expect(false).toNotBeTrue()
+false.should.notBeTrue()
+----
+
+=== toBeFalse/beFalse
+
+Assert that the value is `false`
+
+[source,kotlin]
+----
+expect(false).toBeFalse()
+false.should.beFalse()
+----
+
+=== toNotBeFalse/notBeFalse
+
+Assert that the value is NOT `false`
+
+[source,kotlin]
+----
+expect(true).toNotBeFalse()
+true.should.notBeFalse()
+----
+
+== String Assertions
+
+=== toBeEmpty/beEmpty
+
+Assert that a string is empty ("")
+
+[source,kotlin]
+----
+expect("").toBeEmpty()
+"".should.beEmpty()
+----
+
+=== toNotBeEmpty/beNotEmpty
+
+Assert that a string is NOT empty ("")
+
+[source,kotlin]
+----
+expect("  ").toNotBeEmpty()
+"  ".should.beNotEmpty()
+----
+
+=== toHaveLength/haveLength
+
+Assert that a string is of a certain length
+
+[source,kotlin]
+----
+expect("james").toHaveLength(5)
+"james".should.haveLength(5)
+----
+
+=== toBeBlank/beBlank
+
+Assert that a string is blank, in that it is empty or contains only
+whitespace
+
+[source,kotlin]
+----
+expect("   ").toBeBlank()
+"    ".should.beBlank()
+----
+
+=== toNotBeBlank/notBeBlank
+
+Assert that a string is not blank, in that it isn’t empty or contains
+more than whitespace
+
+[source,kotlin]
+----
+expect("james").toNotBeBlank()
+"james".should.notBeBlank()
+----
+
+=== toBeEquivalentTo/beEquivalentTo
+
+Assert that a string is equal to another string regardless of case
+(ignore case comparation)
+
+....
+expect("JAMES").toBeEquivalentTo("james")
+"JAMES".should.beEquivalentTo("james")
+....
+
+=== toEndWith/endWith
+
+Assert that a string ends with another string
+
+[source,kotlin]
+----
+expect("James").toEndWith("es")
+"James".should.endWith("es")
+----
+
+=== toEndWithEquivalent/endWithEquivalent
+
+Assert that a string ends with another string regardless of case
+
+[source,kotlin]
+----
+expect("JAMES").toEndWithEquivalent("es")
+"JAMES".should.endWithEquivalent("es")
+----
+
+=== toContain/contain
+
+Assert that a string contains another string
+
+[source,kotlin]
+----
+expect("james").toContain("am")
+"james".should.contain("am")
+----
+
+=== toContainEquivalent/containEquivalent
+
+Assert that a string contains another string regardless of case.
+
+[source,kotlin]
+----
+expect("JAMES").toContainEquivalent("am")
+"JAMES".should.containEquivalent("am")
+----
+
+=== toNotContain/notContain
+
+Assert that a string doesn’t contain another string.
+
+[source,kotlin]
+----
+expect("james").toNotContain("ei")
+"james".should.notContain("ei")
+----
+
+=== toNotContainEquivalent/notContainEquivalent
+
+Assert that a string doesn’t contain another string regardless of case.
+
+[source,kotlin]
+----
+expect("JAMES").toNotContainEquivalent("ei")
+"JAMES".should.notContainEquivalent("ei")
+----
+
+=== toStartWith/startWith
+
+Assert that a string starts with another string.
+
+[source,kotlin]
+----
+expect("james").toStartWith("j")
+"james".should.startWith("j")
+----
+
+=== toStartWithEquivalent/startWithEquivalent
+
+Assert that a string starts with another string regardless of case.
+
+[source,kotlin]
+----
+expect("james").toStartWithEquivalent("JA")
+"james".should.startWithEquivalent("JA")
+----
+
+=== toMatch/match
+
+Assert that a string matches the given regex.
+
+[source,kotlin]
+----
+expect("james").toMatch("^james$")
+"james".should.match("^james$")
+----
+
+== Numeric Assertions (currently Int, Long, Double, Float)
+
+=== toBeGreaterOrEqualTo/beGreaterOrEqualTo
+
+Assert that a number is greater than or equal to another
+
+[source,kotlin]
+----
+expect(2).toBeGreaterOrEqualTo(1)
+2.should.beGreaterOrEqualTo(1)
+----
+
+=== toBeGreaterThan/beGreaterThan
+
+Assert that a number is greater than to another
+
+[source,kotlin]
+----
+expect(2).toBeGreaterThan(1)
+2.should.beGreaterThan(1)
+----
+
+=== toBeLessOrEqualTo/beLessOrEqualTo
+
+Assert that a number is less than or equal to another
+
+[source,kotlin]
+----
+expect(1).toBeLessOrEqualTo(2)
+1.should.beLessOrEqualTo(2)
+----
+
+=== toBeLessThan/beLessThan
+
+Assert that a number is less than to another
+
+[source,kotlin]
+----
+expect(1).toBeLessThan(2)
+1.should.beLessThan(2)
+----
+
+=== toBeInRange/beInRange
+
+Assert that a number is within the lower and upper bounds passed in
+
+[source,kotlin]
+----
+expect(2).toBeInRange(1, 3)
+2.should.beInRange(1, 3)
+----
+
+=== toBeApproximately/beApproximately
+
+Assert that a number is approximately another - the level of error is defined by the tolerance value (+/- tolerance)
+
+[source,kotlin]
+----
+expect(2f).toBeApproximately(2.1f, 0.1f)
+2f.should.beApproximately(2.1f, 0.1f)
+----
+
+== Collection Assertions (currently List)
+
+=== toBeEmpty
+
+Assert that the list don’t have any items
+
+[source,kotlin]
+----
+expect(listOf<String>()).toBeEmpty()
+listOf<String>().should.beEmpty()
+----
+
+=== toNotBeEmpty
+
+Assert that the list contain items
+
+[source,kotlin]
+----
+expect(listOf("james")).toNotBeEmpty()
+listOf("james").should.notBeEmpty()
+----
+
+=== toHaveSize
+
+Assert that the list contains x items
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toHaveSize(2)
+listOf("james", "cindy").should.haveSize(2)
+----
+
+=== toHaveSameSizeAs
+
+Assert that the list contains the same of items as other list (same type
+or not)
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toHaveSameSizeAs(listOf(1, 2))
+listOf("james", "cindy").should.haveSameSizeAs(listOf(1, 2))
+----
+
+=== toContain
+
+Assert that the list contains this item
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toContain("james")
+listOf("james", "cindy").should.contain("james")
+----
+
+=== toHaveInstanceOfItemAt
+
+Assert that the list contains an instance of this class at that index
+
+[source,kotlin]
+----
+expect(listOf("james", 1)).toHaveInstanceOfItemAt(String::class, 0)
+listOf("james", 1).should.haveInstanceOfItemAt(String::class, 0)
+----
+
+=== toMatchLambda
+
+Assert that the list contains any item that matches the lambda
+(predicate)
+
+[source,kotlin]
+----
+expect(listOf(1, 2)).toMatchLambda { it > 1 }
+listOf(1, 2).should.matchLambda { it > 1 }
+----
+
+=== toContainAll
+
+Assert that the list contains all this items
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toContainAll(listOf("james"))
+listOf("james", "cindy").should.containAll(listOf("james"))
+----
+
+=== toOnlyContain
+
+Assert that all items in the list matches the lambda (predicate)
+
+[source,kotlin]
+----
+expect(listOf(2, 4, 6)).toOnlyContain { it.mod(2) == 0 }
+listOf(2, 4, 6).should.onlyContain { it.mod(2) == 0 }
+----
+
+=== toContainNull
+
+Assert that the list contains a null value
+
+[source,kotlin]
+----
+expect(listOf("james", null)).toContainNull()
+listOf("james", null).should.containNull()
+----
+
+=== toNotContain
+
+Assert that the list does not contain this item
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toNotContain("tsu")
+listOf("james", "cindy").should.notContain("tsu")
+----
+
+=== toNotMatchLambda
+
+Assert that the list does not have any item that matches the lambda
+(predicate)
+
+[source,kotlin]
+----
+expect(listOf(1, 2)).toNotMatchLambda { it > 2 }
+listOf(1, 2).should.notMatchLambda { it > 2 }
+----
+
+=== toNotContainAny
+
+Assert that the list does not contain any of these items
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toNotContainAny(listOf("tsu"))
+listOf("james", "cindy").should.notContainAny(listOf("tsu"))
+----
+
+=== toNotContainNull
+
+Assert that the list does not contain null
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toNotContainNull()
+listOf("james", "cindy").should.notContainNull()
+----
+
+=== toStartWith
+
+Assert that the list first item is this
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toStartWith("james")
+listOf("james", "cindy").should.startWith("james")
+----
+
+=== toEndWith
+
+Assert that the list last item is this
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toEndWith("cindy")
+listOf("james", "cindy").should.endWith("cindy")
+----
+
+=== toHaveItemAt
+
+Assert that the list have a specific item at a position
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toHaveItemAt("cindy", 1)
+listOf("james", "cindy").should.haveItemAt("cindy", 1)
+----
+
+=== toNotContainDuplicates
+
+Assert that the list does not contains duplicated items
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toNotContainDuplicates()
+listOf("james", "cindy").should.notContainDuplicates()
+----
+
+=== toBeSubsetOf
+
+Assert that this list is a subset of another list
+
+[source,kotlin]
+----
+expect(listOf("james", "cindy")).toBeSubsetOf(listOf("james", "cindy", "tsu", "aphrodite"))
+listOf("james", "cindy").should.beSubsetOf(listOf("james", "cindy", "tsu", "aphrodite"))
+----
+
+== Extending expect-kt
+
+Expectations in expect-kt are https://kotlinlang.org/docs/reference/extensions.html[extension functions] to `Expectation` and `Should` . If you want a expectation function that don't already exist, you can create one in your files as this:
+
+[source,kotlin]
+----
+fun Expectation<Type>.toBeSomething(something: Type): ExpectationChain<Type> {
+    assertTrue(target.doSomething())
+    return ExpectationChain(this)
+}
+
+fun Should<Type>.beSomething(something: Type): ShouldChain<Type> {
+    expectation.toBeSomething(value)
+    return ShouldChain(this)
+}
+----
+
+Where:
+
+- `Type` is the class you are testing. For example: Int, String, User (your own class), List<T>
+- `target` is the object of `Type` that your expectation will run against
+- Your method *should* return a ExpectationChain/ShouldChain for that type, so you can chain your calls
+- Your method can receive any number and any type of parameters
+- `Should` extensions usually just call `Expectation` methods because `Should` is a sugar around `Expectation` anyway.
+
+You can check link:src/test/kotlin/com/tsuharesu/expectations/CustomExpectationTests.kt[CustomExpectationTests.kt] to see an example.

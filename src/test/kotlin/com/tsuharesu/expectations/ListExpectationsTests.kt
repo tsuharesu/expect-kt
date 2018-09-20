@@ -48,6 +48,20 @@ class ListExpectationsTests {
         }
     }
 
+    @Test fun toHaveInstanceOfItemAt() {
+        expect(listOf("james", 1)).toHaveInstanceOfItemAt(String::class, 0)
+
+        assertFailsWith(AssertionError::class) {
+            expect(listOf("james", 1)).toHaveInstanceOfItemAt(String::class, 1)
+        }
+
+        listOf("james", 1).should.haveInstanceOfItemAt(String::class, 0)
+
+        assertFailsWith(AssertionError::class) {
+            listOf("james", 1).should.haveInstanceOfItemAt(String::class, 1)
+        }
+    }
+
     @Test fun toContainLambda() {
         expect(listOf(1, 2)).toMatchLambda { it > 1 }
 
